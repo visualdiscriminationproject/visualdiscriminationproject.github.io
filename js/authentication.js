@@ -16,21 +16,29 @@ function logout(){
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-        document.getElementById("display_block").style.display = "block";
         document.getElementById("login_block").style.display = "none";
+
+        var myClasses = document.querySelectorAll('.authElements'),
+            i = 0,
+            l = myClasses.length;
+    
+        for (i; i < l; i++) {
+            myClasses[i].style.display = 'block';
+        }
 
         var user = firebase.auth().currentUser;
 
         // TODO: pull participants and potentially edit
-
         // TODO: display active participants 
-
-        //if (user != null){
-        //    var email_id = user.email;
-        //    document.getElementById("user_para").innerHTML = "Welcome User : " + email_id;
-        //}
     } else {
-        document.getElementById("display_block").style.display = "none";
-        document.getElementById("login_block").style.display   = "block";
+        document.getElementById("login_block").style.display = "block";
+
+        var myClasses = document.querySelectorAll('.authElements'),
+            i = 0,
+            l = myClasses.length;
+    
+        for (i; i < l; i++) {
+            myClasses[i].style.display = 'none';
+        }
     }
 });
