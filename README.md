@@ -1,1 +1,0 @@
-# visualdiscriminationproject.github.io
