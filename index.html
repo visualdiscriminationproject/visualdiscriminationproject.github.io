@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 
-    <title>SQAB Submissions</title>
+    <title>Visual Discrimination App</title>
 
     <script src="js/jquery.min.js"></script>
 
@@ -26,22 +26,81 @@
     <!-- Template styles -->
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 
+    <!-- Firebase Req's -->
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js"></script>
 </head>
 <body>
-    <h1>Test</h1>
+    <header>
+        <!--Navbar-->
+        <div class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">VDP</a>
+                </div>
+                <div class="navbar-collapse collapse navbar-responsive-collapse">
+                    <ul class="nav navbar-nav">                 
+                        <li><a href="#">Participants</a></li>
+                        <li><a href="#">Progress Monitoring</a></li>
+                        <li><a href="javascript:logout()">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--/.Navbar-->
+    </header>
+
+    <main>
+        <div class="container">
+
+            <!--Main Display row-->
+            <div id="display_block" class="row" style="display:none">
+                <div class="col-md-12">
+                    <div class="jumbotron">
+                        <h2 class="h2-responsive">TITLE</h2>
+                        <br/>
+                        <p class="lead">...</p>
+                    </div>
+                </div>
+            </div>
+            <!--/.Main Display row-->
+
+            <!-- Login row -->
+            <div id="login_block" class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="well" style="text-align:center">
+                        <h2 class="h2-responsive">Firebase Web login Example</h2>
+
+                        <input type="email"    placeholder="Email..."    id="email_field" /> <br/>
+                        <input type="password" placeholder="Password..." id="password_field" /> <br/>
+                
+                        <button onclick="login()">Login to Account</button>
+                    </div>
+                </div>
+            </div>
+            <!--/.Login row -->
+        </div>
+    </main>
 </body>
 
 <script>
-  var config = {
-    apiKey: "AIzaSyAe1F5zmD2UEopduuroDDQ6opPYWyquJvQ",
-    authDomain: "visual-discrimination-app.firebaseapp.com",
-    databaseURL: "https://visual-discrimination-app.firebaseio.com",
-    projectId: "visual-discrimination-app",
-    storageBucket: "visual-discrimination-app.appspot.com",
-    messagingSenderId: "313567895439"
-  };
-  firebase.initializeApp(config);
+    var config = {
+        apiKey: "AIzaSyAe1F5zmD2UEopduuroDDQ6opPYWyquJvQ",
+        authDomain: "visual-discrimination-app.firebaseapp.com",
+        databaseURL: "https://visual-discrimination-app.firebaseio.com",
+        projectId: "visual-discrimination-app",
+        storageBucket: "visual-discrimination-app.appspot.com",
+        messagingSenderId: "313567895439"
+    };
+    firebase.initializeApp(config);
 </script>
+
+<script src="js/authentication.js"></script>
+
 </html>
