@@ -20,8 +20,8 @@
         return "storage/" + id + "/participants";
     }
 
-    function updateChart(id) {
-        console.log('called update for: ' + id);
+    function updateChart(id, tag) {
+        console.log('called update for: ' + id + " tag: " + tag);
     }
 
     // init db
@@ -67,7 +67,10 @@
 
                     querySnapshot.forEach(function(doc) {
                         var aTag = document.createElement('a');
-                        aTag.setAttribute('href', 'javascript:updateChart("' + doc.id + '");');
+                        aTag.setAttribute('href', 'javascript:updateChart(' + 
+                                                   '"' + user["uid"] + '",' +
+                                                   '"' + doc.id + '"' +
+                                                   ');');
                         aTag.setAttribute('class', 'leading');
                         aTag.innerHTML = doc.id;
                             document.getElementById("participantDiv").appendChild(aTag);
