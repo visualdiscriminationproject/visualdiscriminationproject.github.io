@@ -39,6 +39,22 @@
             }
         }).then(function() {
             console.log(prePlotter);
+
+            var tableBody = document.getElementById("tableBody");
+            tableBody.innerHTML = "";
+
+            prePlotter.forEach(function(row) {
+                var eachrow = "<tr>"
+                    + "<td>" + row[0] + "</td>"
+                    + "<td>" + row[1] + "</td>"
+                    + "<td>" + row[2] + "</td>"
+                    + "<td>" + row[3] + "</td>"
+                    + "<td>" + row[4] + "</td>"
+                    + "<td>" + row[5] + "</td>"
+                + "</tr>";
+
+                var newRow = tableBody.insertRow(eachrow);
+            });
         });
 /*
 
