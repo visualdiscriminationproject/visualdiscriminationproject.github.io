@@ -39,7 +39,7 @@ firebase.auth().onAuthStateChanged(user => {
         var db = firebase.firestore();
         var usr = firebase.auth().currentUser;
 
-        const store = admin.firestore()
+        const store = firebase.firestore()
         store.collection('/').doc('storage').get().then(doc => {
             if (doc.exists) {
                 console.log(doc.data())
