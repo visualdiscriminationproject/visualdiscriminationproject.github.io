@@ -14,6 +14,8 @@ function logout(){
     firebase.auth().signOut();
 }
 
+var firestore = null;
+
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
         document.getElementById("login_block").style.display = "none";
@@ -26,6 +28,17 @@ firebase.auth().onAuthStateChanged(user => {
             myClasses[i].style.display = 'block';
         }
 
+        firestore = firebase.firestore();
+        const objRef = firestore.collection("storage");
+
+        objRef.get().then(function (doc) {
+            if (doc && doc.exists) {
+                const mData = doc.data();
+
+                console.log(mData);
+            }
+        });
+
         console.log("go");
 
         // var user = firebase.auth().currentUser.uid;
@@ -33,13 +46,14 @@ firebase.auth().onAuthStateChanged(user => {
         // console.log(this.userId);
         // console.log(user);
 
-        const objRef = firebase.firestore().collection("storage");
+        //const objRef = firebase.firestore().collection("storage");
         // console.log(objRef);
 
-        var db = firebase.firestore();
-        var usr = firebase.auth().currentUser;
+        //var db = firebase.firestore();
+        //var usr = firebase.auth().currentUser;
 
-        const store = firebase.firestore()
+        //const store = firebase.firestore()
+        /*
         store.collection('storage').get().then(doc => {
             if (doc.exists) {
                 console.log(doc.data())
@@ -53,6 +67,7 @@ firebase.auth().onAuthStateChanged(user => {
             console.log(reason)
             //res.send(reason)
         });
+        */
 
         /*
         firebase.firestore().collection('storage').get()
