@@ -13,16 +13,20 @@
 
     var firestore = firebase.firestore();
     firestore.settings({timestampsInSnapshots: true});
+
 //SGuxyi1FZIdIr54SOG0CBserUkf2/participants
+
     const docRef = firestore.collection("storage");
 
     getRealtimeUpdates = function() {
-        docRef.onSnapshot(function (doc) {
-            if (doc && doc.exists) {
-                const myData = doc.data();
+        docRef.onSnapshot(function (snapshot) {
+            //if (doc && doc.exists) {
+            //    const myData = doc.data();
 
-                console.log(myData);                
-            }
+                console.log(snapshot);
+            //}
+        }, function(error) {
+            console.log(error);
         });
     }
 
