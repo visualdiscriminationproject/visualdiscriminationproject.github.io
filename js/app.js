@@ -46,8 +46,8 @@
             prePlotter.forEach(function(row) {
                 var newRow = document.createElement("tr");
 
-                var cell = document.createElement("td");
-                var cellText = document.createTextNode(row[k].sessionDate);
+                var cell     = document.createElement("td");
+                var cellText = document.createTextNode(row.sessionDate);
                     cell.appendChild(cellText);
                     newRow.appendChild(cell);
 
