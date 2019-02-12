@@ -21,11 +21,15 @@
     getRealtimeUpdates = function() {
         docRef.onSnapshot(function (snapshot) {
             if (snapshot && snapshot.exists) {
+                console.log('snap true');
             //    const myData = doc.data();
 
                 console.log(snapshot.data());
+            } else {
+                console.log('snap false');
             }
         }, function(error) {
+            console.log('err');
             console.log(error);
         });
     }
