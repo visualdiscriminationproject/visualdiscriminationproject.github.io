@@ -25,9 +25,6 @@
     }
 
     function updateChart(id, tag) {
-        console.log('called update for: ' + id + " tag: " + tag);
-        console.log(buildDocumentPath(id, tag));
-
         var docRef = firestore.collection(buildDocumentPath(id, tag));
         docRef.get().then(function(querySnapshot) {
             if (!querySnapshot.empty) {
@@ -38,16 +35,6 @@
                 });
             }
         });
-
-        /*
-        docRef.get().then(function(querySnapshot) {
-            if (querySnapshot.empty) {
-                console.log('no documents found');
-            } else {
-                console.log(querySnapshot.data());
-            }
-        });
-        */
     }
 
     // init db
