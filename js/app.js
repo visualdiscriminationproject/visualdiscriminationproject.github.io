@@ -20,6 +20,10 @@
         return "storage/" + id + "/participants";
     }
 
+    function updateChart(id) {
+        console.log('called update for: ' + id);
+    }
+
     // init db
     var config = {
         apiKey: "AIzaSyAe1F5zmD2UEopduuroDDQ6opPYWyquJvQ",
@@ -63,7 +67,7 @@
 
                     querySnapshot.forEach(function(doc) {
                         var aTag = document.createElement('a');
-                        aTag.setAttribute('href', "#");
+                        aTag.setAttribute('href', 'javascript:updateChart(' + doc.id + ');');
                         aTag.setAttribute('class', 'leading');
                         aTag.innerHTML = doc.id;
                             document.getElementById("participantDiv").appendChild(aTag);
