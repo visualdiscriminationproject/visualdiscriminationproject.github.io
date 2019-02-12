@@ -71,21 +71,23 @@
             var collRef = firestore.collection(buildParticipantPath(user["uid"]));
             collRef.get().then(function(querySnapshot) { //Call get() to get a QuerySnapshot    
                 if (!querySnapshot.empty) { //Check whether there are any documents in the result
-                    var headerText = (querySnapshot.size == 1) ? "1 participant" : 
+                    var headerText = (querySnapshot.size == 1) ? 
+                      "1 participant" : 
                       querySnapshot.size + " participants";
 
                     document.getElementById("nParticipantSpan").innerHTML = headerText;
 
                     querySnapshot.forEach(function(doc) {
-                        console.log(doc.data());
+                        const mData = doc.data();
 
                         var aTag = document.createElement('a');
                         aTag.setAttribute('href', 'javascript:updateChart(' + 
                                                    '"' + user["uid"] + '",' +
                                                    '"' + doc.id + '"' +
                                                    ');');
+
                         aTag.setAttribute('class', 'leading');
-                        aTag.innerHTML = doc.id;
+                        aTag.innerHTML = mData.participantTag + " (" + doc.id + ")";
                             document.getElementById("participantDiv").appendChild(aTag);
 
                         var brTag = document.createElement('br');
