@@ -36,6 +36,8 @@ firebase.auth().onAuthStateChanged(user => {
                 const mData = doc.data();
 
                 console.log(mData);
+            } else {
+                console.log(doc);
             }
         }).catch( function (err) {
             console.log('err', err);
