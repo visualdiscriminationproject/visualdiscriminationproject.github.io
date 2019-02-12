@@ -44,16 +44,17 @@
             tableBody.innerHTML = "";
 
             prePlotter.forEach(function(row) {
-                var eachrow = "<tr>"
-                    + "<td>" + row[0] + "</td>"
-                    + "<td>" + row[1] + "</td>"
-                    + "<td>" + row[2] + "</td>"
-                    + "<td>" + row[3] + "</td>"
-                    + "<td>" + row[4] + "</td>"
-                    + "<td>" + row[5] + "</td>"
-                + "</tr>";
+                var newRow = document.createElement("tr");
 
-                var newRow = tableBody.insertRow(eachrow);
+                for (var k = 0; k < 6; k++) {
+                    var cell = document.createElement("td");
+                    var cellText = document.createTextNode(row[k]);
+
+                    cell.appendChild(cellText);
+                    newRow.appendChild(cell);
+                }
+
+                tableBody.appendChild(newRow);
             });
         });
 /*
