@@ -41,9 +41,12 @@ firebase.auth().onAuthStateChanged(user => {
         var db = firebase.firestore();
         var usr = firebase.auth().currentUser;
 
-        var mStr = firebase.firestore().collection('storage');
+        firebase.firestore().collection('storage').get()
+            .then(function(qry) {
+                console.log(qry);
+            });
 
-        console.log(mStr);
+//        console.log(mStr);
 
         /*
         db.doc("storage").get()
