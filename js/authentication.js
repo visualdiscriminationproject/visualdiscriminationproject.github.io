@@ -41,7 +41,7 @@ firebase.auth().onAuthStateChanged(user => {
         var db = firebase.firestore();
         var usr = firebase.auth().currentUser;
 
-        db.collection("storage").get()
+        db.doc("storage").get()
                               .then(function(querySnapshot) {
                                     querySnapshot.forEach(function(doc) {
                                         console.log(doc.id, " => ", doc.data());
