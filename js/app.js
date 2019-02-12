@@ -67,7 +67,7 @@
 
                     querySnapshot.forEach(function(doc) {
                         var aTag = document.createElement('a');
-                        aTag.setAttribute('href', 'javascript:updateChart(' + doc.id + ');');
+                        aTag.setAttribute('href', 'javascript:updateChart("' + doc.id + '");');
                         aTag.setAttribute('class', 'leading');
                         aTag.innerHTML = doc.id;
                             document.getElementById("participantDiv").appendChild(aTag);
