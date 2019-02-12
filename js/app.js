@@ -28,6 +28,7 @@
         var docRef = firestore.collection(buildDocumentPath(id, tag));
 
         var mPlotData = [];
+        var mPlotDifficulty = [];
 
         docRef.get().then(function(querySnapshot) {
             var prePlotter = [];
@@ -94,31 +95,46 @@
 
                 tableBody.appendChild(newRow);
             });
-        }).then(function(prePlotter) {
-            console.log('pull from table');
+        }).then(function() {
+            var mLabels = [];
 
             var table = document.getElementById("tableBody");
             for (var i = 0, row; row = table.rows[i]; i++) {
                 mPlotData.push({
-                    //x: moment(row.cells[0].innerText).format(),
                     x: i,
                     y: parseFloat(row.cells[6].innerText)
                 });
+
+                mPlotDifficulty.push({
+                    x: i,
+                    y: parseFloat(row.cells[2].innerText) * 100
+                })
+
+                mLabels.push('' + i);
             }
 
-//            var datapoints = [0, 20, 20, 60, 60, 120, NaN, 180, 120, 125, 105, 110, 170];
             var config = {
                 type: 'line',
                 data: {
-//                    labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-                    datasets: [{
-                        label: 'Linear interpolation',
+                    labels: mLabels,
+                    datasets: [
+                    {
+                        label: 'Accuracy',
                         data: mPlotData,
                         borderColor: window.chartColors.green,
                         backgroundColor: 'rgba(0, 0, 0, 0)',
                         fill: false,
                         lineTension: 0,
-                    }]
+                    },
+                    {
+                        label: 'Difficulty',
+                        data: mPlotDifficulty,
+                        borderColor: window.chartColors.red,
+                        backgroundColor: 'rgba(0, 0, 0, 0)',
+                        fill: false,
+                        lineTension: 0,
+                    },
+                    ]
                 },
                 options: {
                     responsive: true,
@@ -131,11 +147,11 @@
                     },
                     scales: {
                         xAxes: [{
-                            type: 'time',
+                            //type: 'time',
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Date'
+                                labelString: 'Session'
                             },
                             ticks: {
                                 major: {
