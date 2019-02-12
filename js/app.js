@@ -60,11 +60,16 @@
 
                     querySnapshot.forEach(function(doc) {
                         //console.log(doc.id, " => ", doc.data());
+
                         var aTag = document.createElement('a');
                         aTag.setAttribute('href', "#");
                         aTag.innerHTML = doc.id;
 
-                        document.getElementById("participantDiv").appendChild(aTag);
+                            document.getElementById("participantDiv").appendChild(aTag);
+
+                        var brTag = document.createElement('br');
+
+                            document.getElementById("participantDiv").appendChild(brTag);
                     });
                 }
             });
