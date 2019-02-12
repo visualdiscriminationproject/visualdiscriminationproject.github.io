@@ -20,8 +20,22 @@
         return "storage/" + id + "/participants";
     }
 
+    function buildDocumentPath(id, tag) {
+        return "storage/" + id + "/participants/" + tag;
+    }
+
     function updateChart(id, tag) {
         console.log('called update for: ' + id + " tag: " + tag);
+
+        var docRef = firestore.doc(buildDocumentPath(id, tag));
+        docRef.get().then(function(querySnapshot) {
+            if (querySnapshot.empty) {
+                console.log('no documents found');
+            } else {
+                console.log(querySnapshot.data());
+            }
+        });
+
     }
 
     // init db
