@@ -27,9 +27,11 @@
     function updateChart(id, tag) {
         var docRef = firestore.collection(buildDocumentPath(id, tag));
 
-        var prePlotter = [];
+        var mPlotData = [];
 
         docRef.get().then(function(querySnapshot) {
+            var prePlotter = [];
+
             if (!querySnapshot.empty) {
                 querySnapshot.forEach(function(doc) {
                     const mData = doc.data();
@@ -37,7 +39,9 @@
                     prePlotter.push(mData);
                 });
             }
-        }).then(function() {
+
+            return prePlotter;
+        }).then(function(prePlotter) {
             var tableBody = document.getElementById("tableBody");
             tableBody.innerHTML = "";
 
@@ -90,63 +94,64 @@
 
                 tableBody.appendChild(newRow);
             });
+        }).then(function(prePlotter) {
+            console.log('pull from table');
 
-            var randomScalingFactor = function() {
-                return Math.round(Math.random() * 100);
-            };
-    
-            var datapoints = [0, 20, 20, 60, 60, 120, NaN, 180, 120, 125, 105, 110, 170];
+            var table = document.getElementById("tableBody");
+            for (var i = 0, row; row = table.rows[i]; i++) {
+                mPlotData.push({
+                    //x: moment(row.cells[0].innerText).format(),
+                    x: i,
+                    y: parseFloat(row.cells[6].innerText)
+                });
+            }
+
+//            var datapoints = [0, 20, 20, 60, 60, 120, NaN, 180, 120, 125, 105, 110, 170];
             var config = {
                 type: 'line',
                 data: {
-                    labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+//                    labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
                     datasets: [{
-                        label: 'Cubic interpolation (monotone)',
-                        data: datapoints,
-                        borderColor: window.chartColors.red,
-                        backgroundColor: 'rgba(0, 0, 0, 0)',
-                        fill: false,
-                        cubicInterpolationMode: 'monotone'
-                    }, {
-                        label: 'Cubic interpolation (default)',
-                        data: datapoints,
-                        borderColor: window.chartColors.blue,
-                        backgroundColor: 'rgba(0, 0, 0, 0)',
-                        fill: false,
-                    }, {
                         label: 'Linear interpolation',
-                        data: datapoints,
+                        data: mPlotData,
                         borderColor: window.chartColors.green,
                         backgroundColor: 'rgba(0, 0, 0, 0)',
                         fill: false,
-                        lineTension: 0
+                        lineTension: 0,
                     }]
                 },
                 options: {
                     responsive: true,
                     title: {
                         display: true,
-                        text: 'Chart.js Line Chart - Cubic interpolation mode'
+                        text: 'Participant Id: ' + tag
                     },
                     tooltips: {
                         mode: 'index'
                     },
                     scales: {
                         xAxes: [{
+                            type: 'time',
                             display: true,
                             scaleLabel: {
-                                display: true
+                                display: true,
+                                labelString: 'Date'
+                            },
+                            ticks: {
+                                major: {
+                                    fontStyle: 'bold',
+                                    fontColor: '#FF0000'
+                                }
                             }
                         }],
                         yAxes: [{
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Value'
+                                labelString: 'Accuracy'
                             },
                             ticks: {
-                                suggestedMin: -10,
-                                suggestedMax: 200,
+                                suggestedMin: 0,
                             }
                         }]
                     }
@@ -157,39 +162,7 @@
             
             window.myLine = new Chart(ctx, config);
             window.myLine.update();
-
-            /*
-            window.onload = function() {
-                var ctx = document.getElementById('canvas').getContext('2d');
-                window.myLine = new Chart(ctx, config);
-            };
-    
-            document.getElementById('randomizeData').addEventListener('click', function() {
-                for (var i = 0, len = datapoints.length; i < len; ++i) {
-                    datapoints[i] = Math.random() < 0.05 ? NaN : randomScalingFactor();
-                }
-                window.myLine.update();
-            });
-            */
-
-
-
-        });
-/*
-
-$.each(data, function (index, item) {
-     var eachrow = "<tr>"
-                 + "<td>" + item[1] + "</td>"
-                 + "<td>" + item[2] + "</td>"
-                 + "<td>" + item[3] + "</td>"
-                 + "<td>" + item[4] + "</td>"
-                 + "</tr>";
-     $('#tbody').append(eachrow);
-});
-
-*/
-
-
+        });;
     }
 
     // init db
