@@ -13,7 +13,7 @@
 
     var firestore = firebase.firestore();
 
-    const docRef = firestore.doc("storage");
+    const docRef = firestore.doc("storage/SGuxyi1FZIdIr54SOG0CBserUkf2");
 
     firebase.initializeApp(config);
 
