@@ -47,8 +47,23 @@
                 myClasses[i].style.display = 'block';
             }
 
-            console.log(user["uid"]);
-    
+            //console.log(user["uid"]);
+
+            var collRef = firestore.collection(buildParticipantPath(user["uid"]));
+            collRef.get().then(function(querySnapshot) { //Call get() to get a QuerySnapshot    
+                if (querySnapshot.empty) { //Check whether there are any documents in the result
+                    console.log('no coll found');
+                } else {
+                    document.getElementById("nParticipantSpan").innerHTML = querySnapshot.size;
+
+                    querySnapshot.forEach(function(doc) {
+                        console.log(doc.id, " => ", doc.data());
+                    });
+                }
+            });
+
+
+
             // TODO: pull participants and potentially edit
             // TODO: display active participants 
         } else {
