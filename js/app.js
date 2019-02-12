@@ -46,13 +46,10 @@
             prePlotter.forEach(function(row) {
                 var newRow = document.createElement("tr");
 
-                for (var k = 0; k < 6; k++) {
-                    var cell = document.createElement("td");
-                    var cellText = document.createTextNode(row[k]);
-
+                var cell = document.createElement("td");
+                var cellText = document.createTextNode(row[k].sessionDate);
                     cell.appendChild(cellText);
                     newRow.appendChild(cell);
-                }
 
                 tableBody.appendChild(newRow);
             });
