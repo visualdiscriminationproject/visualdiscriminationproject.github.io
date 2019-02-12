@@ -26,15 +26,35 @@
 
     function updateChart(id, tag) {
         var docRef = firestore.collection(buildDocumentPath(id, tag));
+
+        var prePlotter = [];
+
         docRef.get().then(function(querySnapshot) {
             if (!querySnapshot.empty) {
                 querySnapshot.forEach(function(doc) {
                     const mData = doc.data();
 
-                    console.log(mData);
+                    prePlotter.push(mData);
                 });
             }
         });
+
+        console.log(prePlotter);
+/*
+
+$.each(data, function (index, item) {
+     var eachrow = "<tr>"
+                 + "<td>" + item[1] + "</td>"
+                 + "<td>" + item[2] + "</td>"
+                 + "<td>" + item[3] + "</td>"
+                 + "<td>" + item[4] + "</td>"
+                 + "</tr>";
+     $('#tbody').append(eachrow);
+});
+
+*/
+
+
     }
 
     // init db
