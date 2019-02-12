@@ -46,10 +46,41 @@
             prePlotter.forEach(function(row) {
                 var newRow = document.createElement("tr");
 
+                // Session Date
                 var cell     = document.createElement("td");
                 var cellText = document.createTextNode(row.sessionDate);
-                    cell.appendChild(cellText);
-                    newRow.appendChild(cell);
+                cell.appendChild(cellText);
+                newRow.appendChild(cell);
+
+                // Display time
+                cell     = document.createElement("td");
+                cellText = document.createTextNode(row.displayTime);
+                cell.appendChild(cellText);
+                newRow.appendChild(cell);
+
+                // difficultyLevel
+                cell     = document.createElement("td");
+                cellText = document.createTextNode(row.difficultyLevel);
+                cell.appendChild(cellText);
+                newRow.appendChild(cell);
+
+                // trialCount
+                cell     = document.createElement("td");
+                cellText = document.createTextNode(row.trialCount);
+                cell.appendChild(cellText);
+                newRow.appendChild(cell);
+
+                // correctAnswers
+                cell     = document.createElement("td");
+                cellText = document.createTextNode(row.correctAnswers);
+                cell.appendChild(cellText);
+                newRow.appendChild(cell);
+
+                // correctAnswers
+                cell     = document.createElement("td");
+                cellText = document.createTextNode(row.wrongAnswers);
+                cell.appendChild(cellText);
+                newRow.appendChild(cell);
 
                 tableBody.appendChild(newRow);
             });
