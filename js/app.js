@@ -18,17 +18,15 @@
 
     var docRef = firestore.collection("storage");
 
-    docRef.get().then(function(querySnapshot) { //Call get() to get a QuerySnapshot
-    
-                if (querySnapshot.empty) { //Check whether there are any documents in the result
-                    console.log('no documents found');
-                } else {
-                        querySnapshot.docs.map(function (documentSnapshot) {
-                            //Not necessary to do that  -> return documentSnapshot.data();
-                            console.log(documentSnapshot.data().name); 
-                        });
-                }
-    
+    docRef.get().then(function(querySnapshot) { //Call get() to get a QuerySnapshot    
+        if (querySnapshot.empty) { //Check whether there are any documents in the result
+            console.log('no documents found');
+        } else {
+            querySnapshot.docs.map(function (documentSnapshot) {
+                //Not necessary to do that  -> return documentSnapshot.data();
+                console.log(documentSnapshot.data()); 
+            });
+        }
     });
 
     /*
