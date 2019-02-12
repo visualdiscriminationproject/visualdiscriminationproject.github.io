@@ -25,7 +25,7 @@
             //querySnapshot.docs.map(function (documentSnapshot) {
                 //Not necessary to do that  -> return documentSnapshot.data();
                 //console.log(querySnapshot.data()); 
-                console.log(querySnapshot);
+                console.log(querySnapshot.data());
             //});
         }
     });
