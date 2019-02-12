@@ -28,7 +28,7 @@
         console.log('called update for: ' + id + " tag: " + tag);
         console.log(buildDocumentPath(id, tag));
 
-        var docRef = firestore.doc(buildDocumentPath(id, tag));
+        //var docRef = firestore.doc(buildDocumentPath(id, tag));
 
         /*
         docRef.get().then(function(querySnapshot) {
