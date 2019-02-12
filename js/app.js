@@ -16,7 +16,7 @@
 
     //SGuxyi1FZIdIr54SOG0CBserUkf2/participants
 
-    var docRef = firestore.collection("storage");
+    var docRef = firestore.doc("storage/SGuxyi1FZIdIr54SOG0CBserUkf2/participants/-LXtheo6MwIVKCX0GAkS");
 
     docRef.get().then(function(querySnapshot) { //Call get() to get a QuerySnapshot    
         if (querySnapshot.empty) { //Check whether there are any documents in the result
@@ -28,29 +28,6 @@
             });
         }
     });
-
-    /*
-    getRealtimeUpdates = function() {
-        docRef.onSnapshot(function (snapshot) {
-            //if (snapshot) {
-                // && snapshot.exists
-                //console.log('snap true');
-                //const myData = doc.data();
-
-                console.log(snapshot.data());
-
-                //snapshot.forEach(function (doc) {
-                //    console.log(doc.id, " => ", doc.data());
-                //})
-            //} else {
-            //    console.log('snap false');
-            //}
-        }, function(error) {
-            console.log('err');
-            console.log(error);
-        });
-    }
-    */
 
     //getRealtimeUpdates();
 //})
