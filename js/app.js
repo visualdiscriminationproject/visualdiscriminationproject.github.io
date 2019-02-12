@@ -56,8 +56,8 @@
                 } else {
 
                     console.log(querySnapshot);
-                    console.log(querySnapshot.size);
-                    document.getElementById("nParticipantSpan").innerHTML = "";
+
+                    document.getElementById("nParticipantSpan").innerHTML = " " + querySnapshot.size + " ";
 
                     querySnapshot.forEach(function(doc) {
                         console.log(doc.id, " => ", doc.data());
