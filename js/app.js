@@ -28,7 +28,16 @@
         console.log('called update for: ' + id + " tag: " + tag);
         console.log(buildDocumentPath(id, tag));
 
-        //var docRef = firestore.doc(buildDocumentPath(id, tag));
+        var docRef = firestore.collection(buildDocumentPath(id, tag));
+        docRef.get().then(function(querySnapshot) {
+            if (!querySnapshot.empty) {
+                querySnapshot.forEach(function(doc) {
+                    const mData = doc.data();
+
+                    console.log(mData);
+                });
+            }
+        });
 
         /*
         docRef.get().then(function(querySnapshot) {
