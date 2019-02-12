@@ -54,7 +54,10 @@
                 if (querySnapshot.empty) { //Check whether there are any documents in the result
                     console.log('no coll found');
                 } else {
-                    document.getElementById("nParticipantSpan").innerHTML = querySnapshot.size;
+
+                    console.log(querySnapshot);
+                    console.log(querySnapshot.size);
+                    document.getElementById("nParticipantSpan").innerHTML = "";
 
                     querySnapshot.forEach(function(doc) {
                         console.log(doc.id, " => ", doc.data());
