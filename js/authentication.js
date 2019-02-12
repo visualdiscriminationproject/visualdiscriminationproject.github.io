@@ -37,6 +37,8 @@ firebase.auth().onAuthStateChanged(user => {
 
                 console.log(mData);
             }
+        }).catch( function (err) {
+            console.log('err', err);
         });
 
         console.log("go");
