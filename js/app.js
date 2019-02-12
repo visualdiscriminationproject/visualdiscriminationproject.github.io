@@ -17,20 +17,19 @@
 //SGuxyi1FZIdIr54SOG0CBserUkf2/participants
 
     const docRef = firestore.collection("storage")
-                            .doc('SGuxyi1FZIdIr54SOG0CBserUkf2')
-                            .collection('participants');
+                            .doc('SGuxyi1FZIdIr54SOG0CBserUkf2');
 
     getRealtimeUpdates = function() {
         docRef.onSnapshot(function (snapshot) {
             if (snapshot && snapshot.exists) {
-                //console.log('snap true');
+                console.log('snap true');
                 //const myData = doc.data();
 
                 console.log(snapshot.data());
 
-                snapshot.forEach(function (doc) {
-                    console.log(doc.id, " => ", doc.data());
-                })
+                //snapshot.forEach(function (doc) {
+                //    console.log(doc.id, " => ", doc.data());
+                //})
             } else {
                 console.log('snap false');
             }
