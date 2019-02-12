@@ -24,6 +24,94 @@
         return "storage/" + id + "/participants/" + tag + "/sessions";
     }
 
+    function updateFigure() {
+        var mLabels = [];
+
+        var mPlotData = [];
+        var mPlotDifficulty = [];
+
+        var table = document.getElementById("tableBody");
+        for (var i = 0, row; row = table.rows[i]; i++) {
+            mPlotData.push({
+                x: i,
+                y: parseFloat(row.cells[6].innerText)
+            });
+
+            mPlotDifficulty.push({
+                x: i,
+                y: parseFloat(row.cells[2].innerText) * 100
+            })
+
+            mLabels.push('' + i);
+        }
+
+        var config = {
+            type: 'line',
+            data: {
+                labels: mLabels,
+                datasets: [
+                {
+                    label: 'Accuracy',
+                    data: mPlotData,
+                    borderColor: window.chartColors.green,
+                    backgroundColor: 'rgba(0, 0, 0, 0)',
+                    fill: false,
+                    lineTension: 0,
+                },
+                {
+                    label: 'Difficulty',
+                    data: mPlotDifficulty,
+                    borderColor: window.chartColors.red,
+                    backgroundColor: 'rgba(0, 0, 0, 0)',
+                    fill: false,
+                    lineTension: 0,
+                },
+                ]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Participant Id: '
+                },
+                tooltips: {
+                    mode: 'index'
+                },
+                scales: {
+                    xAxes: [{
+                        //type: 'time',
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Session'
+                        },
+                        ticks: {
+                            major: {
+                                fontStyle: 'bold',
+                                fontColor: '#FF0000'
+                            }
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Accuracy'
+                        },
+                        ticks: {
+                            suggestedMin: 0,
+                        }
+                    }]
+                }
+            }
+        };
+
+        var ctx = document.getElementById('canvas').getContext('2d');
+        
+        window.myLine = new Chart(ctx, config);
+        window.myLine.update();
+    }
+
     function updateTable(prePlotter) {
         console.log('updateTable(prePlotter)');
         var tableBody = document.getElementById("tableBody");
@@ -78,6 +166,8 @@
 
             tableBody.appendChild(newRow);
         });
+
+        updateFigure();
     }
 
     function updateParticipant(tag) {
@@ -92,9 +182,6 @@
         oldListenerPath = currPath;
 
         var docRef = firestore.collection(currPath);
-
-        var mPlotData = [];
-        var mPlotDifficulty = [];
 
         docRef.onSnapshot(function(querySnapshot) {
             console.log("in snap: " + querySnapshot.empty)
