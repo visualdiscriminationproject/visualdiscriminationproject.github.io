@@ -47,7 +47,7 @@
                 myClasses[i].style.display = 'block';
             }
 
-            console.log(user);
+            console.log(user["uid"]);
     
             // TODO: pull participants and potentially edit
             // TODO: display active participants 
