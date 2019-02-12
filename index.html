@@ -10,7 +10,10 @@
 
     <title>Visual Discrimination App</title>
 
+    <!--
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    -->
+    <script src="js/jquery.min.js" type="text/javascript"></script>
 
     <!-- Material Design fonts -->
     <link rel="stylesheet" href="css/roboto.css" type="text/css">
@@ -49,15 +52,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html">Visual Discrimination Project</a>
+                    <a class="navbar-brand" href="#">Visual Discrimination Project</a>
                 </div>
                 <div class="navbar-collapse collapse navbar-responsive-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="authElements" style="display:none"><a href="#">Participants</a></li>
-                        <!--
-                        <li class="authElements" style="display:none"><a href="#">Progress Monitoring</a></li>
-                        -->
-                        <li class="authElements" style="display:none"><a href="javascript:logout()">Logout</a></li>
+                        <li class="authElements" style="display:none">
+                            <a href="#" data-toggle="modal" data-target="#addParticipantModal">Add Participant</a>
+                        </li>
+                        <li class="authElements" style="display:none">
+                            <a href="javascript:logout()">Logout</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -84,13 +88,13 @@
             <div id="participant_block" class="row authElements" style="display:none">
                 <div class="col-md-12">
                     <div class="jumbotron">
-                        <h2 class="h2-responsive">Current Participants: </h2>
+                        <h2 class="h2-responsive">Current Participants:</h2>
                         <br/>
                         <div id="participantDiv"></div>
                         <div id="tableDiv">
                             <table class="table" id="mTableRef">
                                 <thead>
-                                  <tr>
+                                    <tr>
                                     <th scope="col">Session Date</th>
                                     <th scope="col">Display Time</th>
                                     <th scope="col">Difficulty Level</th>
@@ -98,10 +102,10 @@
                                     <th scope="col">Correct</th>
                                     <th scope="col">Incorrect</th>
                                     <th scope="col">Percentage</th>
-                                  </tr>
+                                    </tr>
                                 </thead>
                                 <tbody id = "tableBody"></tbody>
-                              </table>
+                            </table>
                         </div>
                         <div style="width:100%;">
                             <canvas id="canvas"></canvas>
@@ -127,7 +131,44 @@
             <!--/.Login row -->
         </div>
     </main>
-    
+
+    <!-- Modal -->
+    <div id="addParticipantModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">  
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Privacy</h4>
+                </div>
+                <div class="modal-body">
+                    <p>I'm keeping it short and sweet. I don't collect any data aside from error logging (i.e., program crashes or something). This is by design, because I hate ads and tracking people on the internet creeps me out. Even when logging errors, everyone's IP is anonymized through Google Analytics (check it, its in the footer). Also, this info is purged as early as google lets it, I think about 14 months. If you don't want any logging, click the "Do not allow cookies" or clear the cookie from this site. You're free to use the site either way.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>    
+        </div>
+        <!-- /.Modal content -->
+    </div>
+    <!-- /.Modal -->
+
     <script src="js/app.js"></script>
+
+    <!-- Bootstrap tooltips -->
+    <script src="js/tether.min.js"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Material Design Javascript -->
+    <script src="js/ripples.min.js"></script>
+    <script src="js/material.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        $.material.init();
+    });
+    </script>
 </body>
 </html>
