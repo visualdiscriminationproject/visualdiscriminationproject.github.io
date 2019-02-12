@@ -21,7 +21,7 @@
     }
 
     function buildDocumentPath(id, tag) {
-        return "storage/" + id + "/participants/" + tag;
+        return "storage/" + id + "/participants/" + tag + "/sessions";
     }
 
     function updateChart(id, tag) {
