@@ -35,7 +35,6 @@
                 console.log(querySnapshot.data());
             }
         });
-
     }
 
     // init db
@@ -80,6 +79,8 @@
                     document.getElementById("nParticipantSpan").innerHTML = headerText;
 
                     querySnapshot.forEach(function(doc) {
+                        console.log(data);
+
                         var aTag = document.createElement('a');
                         aTag.setAttribute('href', 'javascript:updateChart(' + 
                                                    '"' + user["uid"] + '",' +
