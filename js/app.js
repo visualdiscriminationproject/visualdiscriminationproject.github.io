@@ -14,10 +14,24 @@
     var firestore = firebase.firestore();
     firestore.settings({timestampsInSnapshots: true});
 
-//SGuxyi1FZIdIr54SOG0CBserUkf2/participants
+    //SGuxyi1FZIdIr54SOG0CBserUkf2/participants
 
-    const docRef = firestore.doc("storage/SGuxyi1FZIdIr54SOG0CBserUkf2/participants");
+    var docRef = firestore.collection("storage");
 
+    docRef.get().then(function(querySnapshot) { //Call get() to get a QuerySnapshot
+    
+                if (querySnapshot.empty) { //Check whether there are any documents in the result
+                    console.log('no documents found');
+                } else {
+                        querySnapshot.docs.map(function (documentSnapshot) {
+                            //Not necessary to do that  -> return documentSnapshot.data();
+                            console.log(documentSnapshot.data().name); 
+                        });
+                }
+    
+    });
+
+    /*
     getRealtimeUpdates = function() {
         docRef.onSnapshot(function (snapshot) {
             //if (snapshot) {
@@ -38,6 +52,7 @@
             console.log(error);
         });
     }
+    */
 
-    getRealtimeUpdates();
+    //getRealtimeUpdates();
 //})
