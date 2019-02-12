@@ -12,7 +12,7 @@
         });
     }
     
-    function logout(){
+    function logout() {
         firebase.auth().signOut();
     }
 
@@ -181,6 +181,54 @@
         });;
     }
 
+    function addNewParticipant() {
+        var pId  = document.getElementById("addParticipantTag").value;
+        var pDes = document.getElementById("addParticipantDescription").value;
+        var pDiff= document.getElementById("addParticipantDifficulty").value;
+        var pDur = document.getElementById("addParticipantDuration").value;
+        var pTrls= document.getElementById("addParticipantTrials").value;
+
+        if (!$.isNumeric(pDiff)) {
+            alert("Difficulty must be a number.");
+            return;
+        }
+
+        if (!$.isNumeric(pDur)) {
+            alert("Duration (seconds) must be a number.");
+            return;
+        }
+
+        if (!$.isNumeric(pTrls)) {
+            alert("Trials (counts) must be a number.");
+            return;
+        }
+
+        pDiff = parseInt(pDiff);
+        pDur  = parseInt(pDur);
+        pTrls = parseInt(pTrls);
+
+        const user = firebase.auth().currentUser;   
+        const path = buildParticipantPath(user["uid"]);
+        
+        firestore.collection(path).add({
+            descriptionTag: pDes,
+            difficultyLevel: pDiff,
+            displayTime: pDur,
+            participantTag: pId,
+            trialNumbers: pTrls
+        }).then(function(docRef) {
+            $('#addParticipantModal').modal('hide');
+
+            document.getElementById("addParticipantTag").value          = "";
+            document.getElementById("addParticipantDescription").value  = "";
+            document.getElementById("addParticipantDifficulty").value   = "";
+            document.getElementById("addParticipantDuration").value     = "";
+            document.getElementById("addParticipantTrials").value       = "";
+        }).catch(function(err) {
+            alert(err);
+        });
+    }
+
     // init db
     var config = {
         apiKey: "AIzaSyAe1F5zmD2UEopduuroDDQ6opPYWyquJvQ",
@@ -242,7 +290,6 @@
             });
 
             // TODO: pull participants and potentially edit
-            // TODO: display active participants 
         } else {
             document.getElementById("login_block").style.display = "block";
     

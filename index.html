@@ -139,13 +139,33 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Privacy</h4>
+                    <h4 class="modal-title">Add New Participant</h4>
                 </div>
                 <div class="modal-body">
-                    <p>I'm keeping it short and sweet. I don't collect any data aside from error logging (i.e., program crashes or something). This is by design, because I hate ads and tracking people on the internet creeps me out. Even when logging errors, everyone's IP is anonymized through Google Analytics (check it, its in the footer). Also, this info is purged as early as google lets it, I think about 14 months. If you don't want any logging, click the "Do not allow cookies" or clear the cookie from this site. You're free to use the site either way.</p>
+                    <div class="form-group">
+                        <label for="addParticipantTag" class="bmd-label-floating">Participant ID</label>
+                        <input type="text" class="form-control" id="addParticipantTag">
+                    </div>
+                    <div class="form-group"> 
+                        <label for="addParticipantDescription" class="bmd-label-floating">Participant description</label>
+                        <input type="text" class="form-control" id="addParticipantDescription">
+                    </div>
+                    <div class="form-group">
+                        <label for="addParticipantDifficulty" class="bmd-label-floating">Difficulty Level (1-50)</label>
+                        <input type="text" class="form-control" id="addParticipantDifficulty">
+                    </div>
+                    <div class="form-group">
+                        <label for="addParticipantDuration" class="bmd-label-floating">Display Time (Seconds)</label>
+                        <input type="text" class="form-control" id="addParticipantDuration">
+                    </div>
+                    <div class="form-group">
+                        <label for="addParticipantTrials" class="bmd-label-floating">Trial Count (n Trials)</label>
+                        <input type="text" class="form-control" id="addParticipantTrials">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" onclick="addNewParticipant();">Save</button>
                 </div>
             </div>    
         </div>
@@ -153,6 +173,7 @@
     </div>
     <!-- /.Modal -->
 
+    <!-- Auth and links -->
     <script src="js/app.js"></script>
 
     <!-- Bootstrap tooltips -->
@@ -165,10 +186,6 @@
     <script src="js/ripples.min.js"></script>
     <script src="js/material.min.js"></script>
 
-    <script>
-    $(document).ready(function() {
-        $.material.init();
-    });
-    </script>
+    <script> $(document).ready(function() { $.material.init(); }); </script>
 </body>
 </html>
