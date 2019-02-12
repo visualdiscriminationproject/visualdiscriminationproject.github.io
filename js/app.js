@@ -37,9 +37,9 @@
                     prePlotter.push(mData);
                 });
             }
+        }).then(function() {
+            console.log(prePlotter);
         });
-
-        console.log(prePlotter);
 /*
 
 $.each(data, function (index, item) {
