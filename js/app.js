@@ -113,7 +113,6 @@
     }
 
     function updateTable(prePlotter) {
-        console.log('updateTable(prePlotter)');
         var tableBody = document.getElementById("tableBody");
         tableBody.innerHTML = "";
 
@@ -186,6 +185,9 @@
         document.getElementById("tagParticipantSpan").innerHTML = tag;
 
         docRef.onSnapshot(function(querySnapshot) {
+            var tableBody = document.getElementById("tableBody");
+            tableBody.innerHTML = "";
+            
             if (!querySnapshot.empty) {
                 var prePlotter = [];
 
@@ -288,11 +290,11 @@
                 const mData = doc.data();
 
                 var aTag = document.createElement('a');
-                aTag.setAttribute('href', 'javascript:updateParticipant(' + 
-                                           '"' + doc.id + '"' +
-                                           ');');
-
+                aTag.setAttribute('href', 'javascript:updateParticipant("' + doc.id + '");');
                 aTag.setAttribute('class', 'leading');
+                //aTag.style.height = "150px";
+                //.setAttribute('style', 'line-height:1em');
+
                 aTag.innerHTML = mData.participantTag + " (" + doc.id + ")";
                     document.getElementById("participantDiv").appendChild(aTag);
 
