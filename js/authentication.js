@@ -41,6 +41,11 @@ firebase.auth().onAuthStateChanged(user => {
         var db = firebase.firestore();
         var usr = firebase.auth().currentUser;
 
+        var mStr = firebase.firestore().collection('storage');
+
+        console.log(mStr);
+
+        /*
         db.doc("storage").get()
                               .then(function(querySnapshot) {
                                     querySnapshot.forEach(function(doc) {
@@ -50,6 +55,7 @@ firebase.auth().onAuthStateChanged(user => {
                               .catch(function(err) {
                                 console.log("Error getting documents: ", err);
                               });
+        */
 
         // TODO: pull participants and potentially edit
         // TODO: display active participants 
