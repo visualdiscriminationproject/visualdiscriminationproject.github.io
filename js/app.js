@@ -16,7 +16,9 @@
 
 //SGuxyi1FZIdIr54SOG0CBserUkf2/participants
 
-    const docRef = firestore.collection("storage");
+    const docRef = firestore.collection("storage")
+                            .doc('SGuxyi1FZIdIr54SOG0CBserUkf2')
+                            .collection('participants');
 
     getRealtimeUpdates = function() {
         docRef.onSnapshot(function (snapshot) {
