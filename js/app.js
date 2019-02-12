@@ -33,7 +33,9 @@
     firebase.initializeApp(config);
 
     var firestore = firebase.firestore();
-    firestore.settings({timestampsInSnapshots: true});
+    firestore.settings({
+        timestampsInSnapshots: true
+    });
 
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
@@ -54,30 +56,24 @@
                 if (querySnapshot.empty) { //Check whether there are any documents in the result
                     console.log('no coll found');
                 } else {
-                    //console.log(querySnapshot);
-                    document.getElementById("nParticipantSpan").innerHTML = " " + 
-                        querySnapshot.size + 
-                        " ";
+                    var headerText = (querySnapshot.size == 1) ? "1 participant" : 
+                      querySnapshot.size + " participants";
+
+                    document.getElementById("nParticipantSpan").innerHTML = headerText;
 
                     querySnapshot.forEach(function(doc) {
-                        //console.log(doc.id, " => ", doc.data());
-
                         var aTag = document.createElement('a');
                         aTag.setAttribute('href', "#");
                         aTag.setAttribute('class', 'leading');
                         aTag.innerHTML = doc.id;
-
                             document.getElementById("participantDiv").appendChild(aTag);
 
                         var brTag = document.createElement('br');
-
                             document.getElementById("participantDiv").appendChild(brTag);
                             document.getElementById("participantDiv").appendChild(brTag);
                     });
                 }
             });
-
-
 
             // TODO: pull participants and potentially edit
             // TODO: display active participants 
