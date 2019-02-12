@@ -28,6 +28,9 @@
         console.log('called update for: ' + id + " tag: " + tag);
 
         var docRef = firestore.doc(buildDocumentPath(id, tag));
+
+        console.log(buildDocumentPath(id, tag));
+
         docRef.get().then(function(querySnapshot) {
             if (querySnapshot.empty) {
                 console.log('no documents found');
