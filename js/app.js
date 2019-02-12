@@ -229,6 +229,65 @@
         });
     }
 
+    function showAuthContent() {
+        document.getElementById("login_block").style.display = "block";
+    
+        var myClasses = document.querySelectorAll('.authElements'),
+            i = 0,
+            l = myClasses.length;
+    
+        for (i; i < l; i++) {
+            myClasses[i].style.display = 'none';
+        }
+    }
+
+    function hideAuthContent() {
+        document.getElementById("login_block").style.display = "none";
+    
+        var myClasses = document.querySelectorAll('.authElements'),
+            i = 0,
+            l = myClasses.length;
+    
+        for (i; i < l; i++) {
+            myClasses[i].style.display = 'block';
+        }
+    }
+
+    function clearParticipantDiv() {
+        document.getElementById("participantDiv").innerHTML = "";
+    }
+
+    function buildHeader(size) {
+        return (size == 1) ? "1 participant" : size + " participants";        
+    }
+
+    function snapshotUpdateCall(querySnapshot) {
+        if (!querySnapshot.empty) { 
+            const user = firebase.auth().currentUser;
+
+            document.getElementById("nParticipantSpan").innerHTML = buildHeader(querySnapshot.size);
+            document.getElementById("participantDiv").innerHTML = "";
+
+            querySnapshot.forEach(function(doc) {
+                const mData = doc.data();
+
+                var aTag = document.createElement('a');
+                aTag.setAttribute('href', 'javascript:updateChart(' + 
+                                           '"' + user["uid"] + '",' +
+                                           '"' + doc.id + '"' +
+                                           ');');
+
+                aTag.setAttribute('class', 'leading');
+                aTag.innerHTML = mData.participantTag + " (" + doc.id + ")";
+                    document.getElementById("participantDiv").appendChild(aTag);
+
+                var brTag = document.createElement('br');
+                    document.getElementById("participantDiv").appendChild(brTag);
+                    document.getElementById("participantDiv").appendChild(brTag);
+            });
+        }
+    }
+
     // init db
     var config = {
         apiKey: "AIzaSyAe1F5zmD2UEopduuroDDQ6opPYWyquJvQ",
@@ -248,21 +307,49 @@
 
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
-            document.getElementById("login_block").style.display = "none";
-    
-            var myClasses = document.querySelectorAll('.authElements'),
-                i = 0,
-                l = myClasses.length;
-        
-            for (i; i < l; i++) {
-                myClasses[i].style.display = 'block';
-            }
+            hideAuthContent();
+            clearParticipantDiv();
 
-            document.getElementById("participantDiv").innerHTML = "";
+            const path = buildParticipantPath(user["uid"]);
+            var collRef = firestore.collection(path);
 
-            var collRef = firestore.collection(buildParticipantPath(user["uid"]));
-            collRef.get().then(function(querySnapshot) { //Call get() to get a QuerySnapshot    
-                if (!querySnapshot.empty) { //Check whether there are any documents in the result
+            collRef.onSnapshot(snapshotUpdateCall);
+
+            /*
+            collRef.onSnapshot(function(querySnapshot) {
+                console.log("update");
+                if (!querySnapshot.empty) { 
+                    //var headerText = (querySnapshot.size == 1) ? 
+                    //  "1 participant" : 
+                    //  querySnapshot.size + " participants";
+
+                    document.getElementById("nParticipantSpan").innerHTML = buildHeader(querySnapshot.size);
+                    document.getElementById("participantDiv").innerHTML = "";
+
+                    querySnapshot.forEach(function(doc) {
+                        const mData = doc.data();
+
+                        var aTag = document.createElement('a');
+                        aTag.setAttribute('href', 'javascript:updateChart(' + 
+                                                   '"' + user["uid"] + '",' +
+                                                   '"' + doc.id + '"' +
+                                                   ');');
+
+                        aTag.setAttribute('class', 'leading');
+                        aTag.innerHTML = mData.participantTag + " (" + doc.id + ")";
+                            document.getElementById("participantDiv").appendChild(aTag);
+
+                        var brTag = document.createElement('br');
+                            document.getElementById("participantDiv").appendChild(brTag);
+                            document.getElementById("participantDiv").appendChild(brTag);
+                    });
+                }
+            })
+            */
+
+            /*
+            collRef.get().then(function(querySnapshot) { 
+                if (!querySnapshot.empty) { 
                     var headerText = (querySnapshot.size == 1) ? 
                       "1 participant" : 
                       querySnapshot.size + " participants";
@@ -288,18 +375,11 @@
                     });
                 }
             });
+            */
 
             // TODO: pull participants and potentially edit
         } else {
-            document.getElementById("login_block").style.display = "block";
-    
-            var myClasses = document.querySelectorAll('.authElements'),
-                i = 0,
-                l = myClasses.length;
-        
-            for (i; i < l; i++) {
-                myClasses[i].style.display = 'none';
-            }
+            showAuthContent();
         }
     });
 
