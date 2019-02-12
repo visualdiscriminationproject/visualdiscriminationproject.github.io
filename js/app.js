@@ -70,9 +70,7 @@
 
             var collRef = firestore.collection(buildParticipantPath(user["uid"]));
             collRef.get().then(function(querySnapshot) { //Call get() to get a QuerySnapshot    
-                if (querySnapshot.empty) { //Check whether there are any documents in the result
-                    console.log('no coll found');
-                } else {
+                if (!querySnapshot.empty) { //Check whether there are any documents in the result
                     var headerText = (querySnapshot.size == 1) ? "1 participant" : 
                       querySnapshot.size + " participants";
 
