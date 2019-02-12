@@ -187,17 +187,17 @@
         docRef.onSnapshot(function(querySnapshot) {
             var tableBody = document.getElementById("tableBody");
             tableBody.innerHTML = "";
-            
+            var prePlotter = [];
+
             if (!querySnapshot.empty) {
-                var prePlotter = [];
 
                 querySnapshot.forEach(function(doc) {
                     const mData = doc.data();
                     prePlotter.push(mData);
                 });
-
-                updateTable(prePlotter);
             }
+
+            updateTable(prePlotter);
         });
     }
 
