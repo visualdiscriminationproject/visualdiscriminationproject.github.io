@@ -38,8 +38,6 @@
                 });
             }
         }).then(function() {
-            console.log(prePlotter);
-
             var tableBody = document.getElementById("tableBody");
             tableBody.innerHTML = "";
 
@@ -79,6 +77,14 @@
                 // correctAnswers
                 cell     = document.createElement("td");
                 cellText = document.createTextNode(row.wrongAnswers);
+                cell.appendChild(cellText);
+                newRow.appendChild(cell);
+
+                tableBody.appendChild(newRow);
+
+                // correctAnswers
+                cell     = document.createElement("td");
+                cellText = document.createTextNode((row.correctAnswers / (row.wrongAnswers + row.correctAnswers)) * 100);
                 cell.appendChild(cellText);
                 newRow.appendChild(cell);
 
