@@ -32,7 +32,7 @@ firebase.auth().onAuthStateChanged(user => {
 
         this.userId = user.uid;
 
-        console.log(user.uid);
+        console.log(this.userId);
         // console.log(user);
 
         // const todoRef = firebase.firestore().collection("storage");
