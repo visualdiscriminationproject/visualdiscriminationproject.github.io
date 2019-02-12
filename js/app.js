@@ -1,4 +1,21 @@
 //(function() {
+
+    function login() {
+        var userEmail = document.getElementById("email_field").value;
+        var userPass  = document.getElementById("password_field").value;
+    
+        firebase.auth().signInWithEmailAndPassword(userEmail, userPass).catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+    
+            window.alert("Error : " + errorMessage);
+        });
+    }
+    
+    function logout(){
+        firebase.auth().signOut();
+    }
+
     // init db
     var config = {
         apiKey: "AIzaSyAe1F5zmD2UEopduuroDDQ6opPYWyquJvQ",
@@ -14,8 +31,34 @@
     var firestore = firebase.firestore();
     firestore.settings({timestampsInSnapshots: true});
 
-    //SGuxyi1FZIdIr54SOG0CBserUkf2/participants
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            document.getElementById("login_block").style.display = "none";
+    
+            var myClasses = document.querySelectorAll('.authElements'),
+                i = 0,
+                l = myClasses.length;
+        
+            for (i; i < l; i++) {
+                myClasses[i].style.display = 'block';
+            }
+    
+            // TODO: pull participants and potentially edit
+            // TODO: display active participants 
+        } else {
+            document.getElementById("login_block").style.display = "block";
+    
+            var myClasses = document.querySelectorAll('.authElements'),
+                i = 0,
+                l = myClasses.length;
+        
+            for (i; i < l; i++) {
+                myClasses[i].style.display = 'none';
+            }
+        }
+    });
 
+    /*
     var docRef = firestore.doc("storage/SGuxyi1FZIdIr54SOG0CBserUkf2/participants/-LXtheo6MwIVKCX0GAkS");
     docRef.get().then(function(querySnapshot) { //Call get() to get a QuerySnapshot    
         if (querySnapshot.empty) { //Check whether there are any documents in the result
@@ -24,7 +67,9 @@
             console.log(querySnapshot.data());
         }
     });
+    */
 
+    /*
     var collRef = firestore.collection("storage/SGuxyi1FZIdIr54SOG0CBserUkf2/participants");
     collRef.get().then(function(querySnapshot) { //Call get() to get a QuerySnapshot    
         if (querySnapshot.empty) { //Check whether there are any documents in the result
@@ -33,7 +78,8 @@
             querySnapshot.forEach(function(doc) {
                 console.log(doc.id, " => ", doc.data());
             });
-            //console.log(querySnapshot.data());
         }
     });
+    */
+
 //})
