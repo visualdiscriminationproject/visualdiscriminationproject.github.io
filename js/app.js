@@ -16,6 +16,10 @@
         firebase.auth().signOut();
     }
 
+    function buildParticipantPath(id) {
+        return "storage/" + id + "/participants";
+    }
+
     // init db
     var config = {
         apiKey: "AIzaSyAe1F5zmD2UEopduuroDDQ6opPYWyquJvQ",
@@ -42,6 +46,8 @@
             for (i; i < l; i++) {
                 myClasses[i].style.display = 'block';
             }
+
+            console.log(user);
     
             // TODO: pull participants and potentially edit
             // TODO: display active participants 
