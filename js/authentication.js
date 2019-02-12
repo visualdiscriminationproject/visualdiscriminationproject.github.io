@@ -36,14 +36,16 @@ firebase.auth().onAuthStateChanged(user => {
         // console.log(user);
 
         const objRef = firebase.firestore().collection("storage");
-        console.log(objRef);
+        // console.log(objRef);
 
         var db = firebase.firestore();
         var usr = firebase.auth().currentUser;
 
         db.collection("storage").get()
                               .then(function(querySnapshot) {
-                                console.log(querySnapshot);
+                                    querySnapshot.forEach(function(doc) {
+                                        console.log(doc.id, " => ", doc.data());
+                                    });
                               })
                               .catch(function(err) {
                                 console.log("Error getting documents: ", err);
