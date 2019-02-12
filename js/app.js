@@ -26,11 +26,11 @@
 
     function updateChart(id, tag) {
         console.log('called update for: ' + id + " tag: " + tag);
+        console.log(buildDocumentPath(id, tag));
 
         var docRef = firestore.doc(buildDocumentPath(id, tag));
 
-        console.log(buildDocumentPath(id, tag));
-
+        /*
         docRef.get().then(function(querySnapshot) {
             if (querySnapshot.empty) {
                 console.log('no documents found');
@@ -38,6 +38,7 @@
                 console.log(querySnapshot.data());
             }
         });
+        */
     }
 
     // init db
