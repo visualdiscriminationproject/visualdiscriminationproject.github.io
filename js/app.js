@@ -56,19 +56,22 @@
                 } else {
                     //console.log(querySnapshot);
                     document.getElementById("nParticipantSpan").innerHTML = " " + 
-                        querySnapshot.size + " ";
+                        querySnapshot.size + 
+                        " ";
 
                     querySnapshot.forEach(function(doc) {
                         //console.log(doc.id, " => ", doc.data());
 
                         var aTag = document.createElement('a');
                         aTag.setAttribute('href', "#");
+                        aTag.setAttribute('class', 'leading');
                         aTag.innerHTML = doc.id;
 
                             document.getElementById("participantDiv").appendChild(aTag);
 
                         var brTag = document.createElement('br');
 
+                            document.getElementById("participantDiv").appendChild(brTag);
                             document.getElementById("participantDiv").appendChild(brTag);
                     });
                 }
