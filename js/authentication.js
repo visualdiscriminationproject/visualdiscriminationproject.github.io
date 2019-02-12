@@ -14,7 +14,7 @@ function logout(){
     firebase.auth().signOut();
 }
 
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(user => {
     if (user) {
         document.getElementById("login_block").style.display = "none";
 
@@ -28,11 +28,14 @@ firebase.auth().onAuthStateChanged(function(user) {
 
         console.log("go");
 
-        //var user = firebase.auth().currentUser.uid;
+        // var user = firebase.auth().currentUser.uid;
+
+        this.userId = user.uid;
 
         console.log(user.uid);
+        // console.log(user);
 
-        const todoRef = firebase.firestore().collection("storage");
+        // const todoRef = firebase.firestore().collection("storage");
 
         // TODO: pull participants and potentially edit
         // TODO: display active participants 
