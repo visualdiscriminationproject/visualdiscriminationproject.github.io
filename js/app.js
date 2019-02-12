@@ -47,20 +47,24 @@
                 myClasses[i].style.display = 'block';
             }
 
-            //console.log(user["uid"]);
+            document.getElementById("participantDiv").innerHTML = "";
 
             var collRef = firestore.collection(buildParticipantPath(user["uid"]));
             collRef.get().then(function(querySnapshot) { //Call get() to get a QuerySnapshot    
                 if (querySnapshot.empty) { //Check whether there are any documents in the result
                     console.log('no coll found');
                 } else {
-
-                    console.log(querySnapshot);
-
-                    document.getElementById("nParticipantSpan").innerHTML = " " + querySnapshot.size + " ";
+                    //console.log(querySnapshot);
+                    document.getElementById("nParticipantSpan").innerHTML = " " + 
+                        querySnapshot.size + " ";
 
                     querySnapshot.forEach(function(doc) {
-                        console.log(doc.id, " => ", doc.data());
+                        //console.log(doc.id, " => ", doc.data());
+                        var aTag = document.createElement('a');
+                        aTag.setAttribute('href', "#");
+                        aTag.innerHTML = doc.id;
+
+                        document.getElementById("participantDiv").appendChild(aTag);
                     });
                 }
             });
