@@ -17,18 +17,20 @@
     //SGuxyi1FZIdIr54SOG0CBserUkf2/participants
 
     var docRef = firestore.doc("storage/SGuxyi1FZIdIr54SOG0CBserUkf2/participants/-LXtheo6MwIVKCX0GAkS");
-
     docRef.get().then(function(querySnapshot) { //Call get() to get a QuerySnapshot    
         if (querySnapshot.empty) { //Check whether there are any documents in the result
             console.log('no documents found');
         } else {
-            //querySnapshot.docs.map(function (documentSnapshot) {
-                //Not necessary to do that  -> return documentSnapshot.data();
-                //console.log(querySnapshot.data()); 
-                console.log(querySnapshot.data());
-            //});
+            console.log(querySnapshot.data());
         }
     });
 
-    //getRealtimeUpdates();
+    var collRef = firestore.collection("storage/SGuxyi1FZIdIr54SOG0CBserUkf2/participants");
+    collRef.get().then(function(querySnapshot) { //Call get() to get a QuerySnapshot    
+        if (querySnapshot.empty) { //Check whether there are any documents in the result
+            console.log('no coll found');
+        } else {
+            console.log(querySnapshot.data());
+        }
+    });
 //})
