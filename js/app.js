@@ -183,8 +183,9 @@
 
         var docRef = firestore.collection(currPath);
 
+        document.getElementById("tagParticipantSpan").innerHTML = tag;
+
         docRef.onSnapshot(function(querySnapshot) {
-            console.log("in snap: " + querySnapshot.empty)
             if (!querySnapshot.empty) {
                 var prePlotter = [];
 
@@ -196,158 +197,6 @@
                 updateTable(prePlotter);
             }
         });
-
-        /*
-        docRef.get().then(function(querySnapshot) {
-            var prePlotter = [];
-
-            if (!querySnapshot.empty) {
-                querySnapshot.forEach(function(doc) {
-                    const mData = doc.data();
-
-                    prePlotter.push(mData);
-                });
-            }
-
-            return prePlotter;
-        }).then(function(prePlotter) {
-            var tableBody = document.getElementById("tableBody");
-            tableBody.innerHTML = "";
-
-            prePlotter.forEach(function(row) {
-                var newRow = document.createElement("tr");
-
-                // Session Date
-                var cell     = document.createElement("td");
-                var cellText = document.createTextNode(row.sessionDate);
-                cell.appendChild(cellText);
-                newRow.appendChild(cell);
-
-                // Display time
-                cell     = document.createElement("td");
-                cellText = document.createTextNode(row.displayTime);
-                cell.appendChild(cellText);
-                newRow.appendChild(cell);
-
-                // difficultyLevel
-                cell     = document.createElement("td");
-                cellText = document.createTextNode(row.difficultyLevel);
-                cell.appendChild(cellText);
-                newRow.appendChild(cell);
-
-                // trialCount
-                cell     = document.createElement("td");
-                cellText = document.createTextNode(row.trialCount);
-                cell.appendChild(cellText);
-                newRow.appendChild(cell);
-
-                // correctAnswers
-                cell     = document.createElement("td");
-                cellText = document.createTextNode(row.correctAnswers);
-                cell.appendChild(cellText);
-                newRow.appendChild(cell);
-
-                // correctAnswers
-                cell     = document.createElement("td");
-                cellText = document.createTextNode(row.wrongAnswers);
-                cell.appendChild(cellText);
-                newRow.appendChild(cell);
-
-                tableBody.appendChild(newRow);
-
-                // correctAnswers
-                cell     = document.createElement("td");
-                cellText = document.createTextNode((row.correctAnswers / (row.wrongAnswers + row.correctAnswers)) * 100);
-                cell.appendChild(cellText);
-                newRow.appendChild(cell);
-
-                tableBody.appendChild(newRow);
-            });
-        }).then(function() {
-            var mLabels = [];
-
-            var table = document.getElementById("tableBody");
-            for (var i = 0, row; row = table.rows[i]; i++) {
-                mPlotData.push({
-                    x: i,
-                    y: parseFloat(row.cells[6].innerText)
-                });
-
-                mPlotDifficulty.push({
-                    x: i,
-                    y: parseFloat(row.cells[2].innerText) * 100
-                })
-
-                mLabels.push('' + i);
-            }
-
-            var config = {
-                type: 'line',
-                data: {
-                    labels: mLabels,
-                    datasets: [
-                    {
-                        label: 'Accuracy',
-                        data: mPlotData,
-                        borderColor: window.chartColors.green,
-                        backgroundColor: 'rgba(0, 0, 0, 0)',
-                        fill: false,
-                        lineTension: 0,
-                    },
-                    {
-                        label: 'Difficulty',
-                        data: mPlotDifficulty,
-                        borderColor: window.chartColors.red,
-                        backgroundColor: 'rgba(0, 0, 0, 0)',
-                        fill: false,
-                        lineTension: 0,
-                    },
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    title: {
-                        display: true,
-                        text: 'Participant Id: ' + tag
-                    },
-                    tooltips: {
-                        mode: 'index'
-                    },
-                    scales: {
-                        xAxes: [{
-                            //type: 'time',
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Session'
-                            },
-                            ticks: {
-                                major: {
-                                    fontStyle: 'bold',
-                                    fontColor: '#FF0000'
-                                }
-                            }
-                        }],
-                        yAxes: [{
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Accuracy'
-                            },
-                            ticks: {
-                                suggestedMin: 0,
-                            }
-                        }]
-                    }
-                }
-            };
-
-            var ctx = document.getElementById('canvas').getContext('2d');
-            
-            window.myLine = new Chart(ctx, config);
-            window.myLine.update();
-        });
-        */
     }
 
     function addNewParticipant() {
@@ -467,6 +316,7 @@
     firebase.initializeApp(config);
 
     var firestore = firebase.firestore();
+
     firestore.settings({
         timestampsInSnapshots: true
     });
@@ -488,29 +338,4 @@
             showAuthContent();
         }
     });
-
-    /*
-    var docRef = firestore.doc("storage/SGuxyi1FZIdIr54SOG0CBserUkf2/participants/-LXtheo6MwIVKCX0GAkS");
-    docRef.get().then(function(querySnapshot) { //Call get() to get a QuerySnapshot    
-        if (querySnapshot.empty) { //Check whether there are any documents in the result
-            console.log('no documents found');
-        } else {
-            console.log(querySnapshot.data());
-        }
-    });
-    */
-
-    /*
-    var collRef = firestore.collection("storage/SGuxyi1FZIdIr54SOG0CBserUkf2/participants");
-    collRef.get().then(function(querySnapshot) { //Call get() to get a QuerySnapshot    
-        if (querySnapshot.empty) { //Check whether there are any documents in the result
-            console.log('no coll found');
-        } else {
-            querySnapshot.forEach(function(doc) {
-                console.log(doc.id, " => ", doc.data());
-            });
-        }
-    });
-    */
-
 //})
