@@ -13,8 +13,8 @@
 
     var firestore = firebase.firestore();
     firestore.settings({timestampsInSnapshots: true});
-
-    const docRef = firestore.collection("storage/SGuxyi1FZIdIr54SOG0CBserUkf2/participants");
+//SGuxyi1FZIdIr54SOG0CBserUkf2/participants
+    const docRef = firestore.collection("storage");
 
     getRealtimeUpdates = function() {
         docRef.onSnapshot(function (doc) {
