@@ -40,7 +40,7 @@ firebase.auth().onAuthStateChanged(user => {
         var usr = firebase.auth().currentUser;
 
         const store = firebase.firestore()
-        store.collection('/').doc('storage').get().then(doc => {
+        store.collection('storage').get().then(doc => {
             if (doc.exists) {
                 console.log(doc.data())
                 //res.send(doc.data())
