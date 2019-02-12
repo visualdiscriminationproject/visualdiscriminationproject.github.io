@@ -26,7 +26,11 @@ firebase.auth().onAuthStateChanged(function(user) {
             myClasses[i].style.display = 'block';
         }
 
+        console.log("go");
+
         var user = firebase.auth().currentUser;
+
+        console.log(user);
 
         // TODO: pull participants and potentially edit
         // TODO: display active participants 
