@@ -30,7 +30,10 @@
         if (querySnapshot.empty) { //Check whether there are any documents in the result
             console.log('no coll found');
         } else {
-            console.log(querySnapshot.data());
+            querySnapshot.forEach(function(doc) {
+                console.log(doc.id, " => ", doc.data());
+            });
+            //console.log(querySnapshot.data());
         }
     });
 //})
