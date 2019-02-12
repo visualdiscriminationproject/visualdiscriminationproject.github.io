@@ -23,10 +23,14 @@
     getRealtimeUpdates = function() {
         docRef.onSnapshot(function (snapshot) {
             if (snapshot && snapshot.exists) {
-                console.log('snap true');
-            //    const myData = doc.data();
+                //console.log('snap true');
+                //const myData = doc.data();
 
                 console.log(snapshot.data());
+
+                snapshot.forEach(function (doc) {
+                    console.log(doc.id, " => ", doc.data());
+                })
             } else {
                 console.log('snap false');
             }
