@@ -29,9 +29,7 @@ firebase.auth().onAuthStateChanged(user => {
         console.log("go");
 
         // var user = firebase.auth().currentUser.uid;
-
         // this.userId = user.uid;
-
         // console.log(this.userId);
         // console.log(user);
 
@@ -41,11 +39,28 @@ firebase.auth().onAuthStateChanged(user => {
         var db = firebase.firestore();
         var usr = firebase.auth().currentUser;
 
+        const store = admin.firestore()
+        store.collection('/').doc('storage').get().then(doc => {
+            if (doc.exists) {
+                console.log(doc.data())
+                //res.send(doc.data())
+            }
+            else {
+                console.log('nthg');
+                //res.send("Nothing")
+            }
+        }).catch(reason => {
+            console.log(reason)
+            //res.send(reason)
+        });
+
+        /*
         firebase.firestore().collection('storage').get()
             .then(function(qry) {
                 console.log(qry);
             });
-
+            */
+        
 //        console.log(mStr);
 
         /*
