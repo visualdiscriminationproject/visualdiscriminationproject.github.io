@@ -30,12 +30,14 @@ firebase.auth().onAuthStateChanged(user => {
 
         // var user = firebase.auth().currentUser.uid;
 
-        this.userId = user.uid;
+        // this.userId = user.uid;
 
-        console.log(this.userId);
+        // console.log(this.userId);
         // console.log(user);
 
-        // const todoRef = firebase.firestore().collection("storage");
+        const objRef = firebase.firestore().collection("storage");
+
+        console.log(objRef);
 
         // TODO: pull participants and potentially edit
         // TODO: display active participants 
