@@ -9,6 +9,8 @@
         messagingSenderId: "313567895439"
     };
 
+    firebase.initializeApp(config);
+
     var firestore = firebase.firestore();
 
     const docRef = firestore.doc("storage");
