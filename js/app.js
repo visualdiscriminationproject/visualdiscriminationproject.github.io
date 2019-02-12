@@ -24,12 +24,93 @@
         return "storage/" + id + "/participants/" + tag + "/sessions";
     }
 
-    function updateChart(id, tag) {
-        var docRef = firestore.collection(buildDocumentPath(id, tag));
+    function updateTable(prePlotter) {
+        console.log('updateTable(prePlotter)');
+        var tableBody = document.getElementById("tableBody");
+        tableBody.innerHTML = "";
+
+        prePlotter.forEach(function(row) {
+            var newRow = document.createElement("tr");
+
+            // Session Date
+            var cell     = document.createElement("td");
+            var cellText = document.createTextNode(row.sessionDate);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            // Display time
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(row.displayTime);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            // difficultyLevel
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(row.difficultyLevel);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            // trialCount
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(row.trialCount);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            // correctAnswers
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(row.correctAnswers);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            // correctAnswers
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(row.wrongAnswers);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            tableBody.appendChild(newRow);
+
+            // correctAnswers
+            cell     = document.createElement("td");
+            cellText = document.createTextNode((row.correctAnswers / (row.wrongAnswers + row.correctAnswers)) * 100);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            tableBody.appendChild(newRow);
+        });
+    }
+
+    function updateParticipant(tag) {
+        const user = firebase.auth().currentUser;
+        const currPath = buildDocumentPath(user["uid"], tag);
+        
+        if (oldListenerPath != null || oldListenerPath == currPath ) {
+            var unsubscribe = firestore.collection(oldListenerPath).onSnapshot(function () {});
+            unsubscribe();
+        }
+
+        oldListenerPath = currPath;
+
+        var docRef = firestore.collection(currPath);
 
         var mPlotData = [];
         var mPlotDifficulty = [];
 
+        docRef.onSnapshot(function(querySnapshot) {
+            console.log("in snap: " + querySnapshot.empty)
+            if (!querySnapshot.empty) {
+                var prePlotter = [];
+
+                querySnapshot.forEach(function(doc) {
+                    const mData = doc.data();
+                    prePlotter.push(mData);
+                });
+
+                updateTable(prePlotter);
+            }
+        });
+
+        /*
         docRef.get().then(function(querySnapshot) {
             var prePlotter = [];
 
@@ -178,7 +259,8 @@
             
             window.myLine = new Chart(ctx, config);
             window.myLine.update();
-        });;
+        });
+        */
     }
 
     function addNewParticipant() {
@@ -263,8 +345,6 @@
 
     function snapshotUpdateCall(querySnapshot) {
         if (!querySnapshot.empty) { 
-            const user = firebase.auth().currentUser;
-
             document.getElementById("nParticipantSpan").innerHTML = buildHeader(querySnapshot.size);
             document.getElementById("participantDiv").innerHTML = "";
 
@@ -272,8 +352,7 @@
                 const mData = doc.data();
 
                 var aTag = document.createElement('a');
-                aTag.setAttribute('href', 'javascript:updateChart(' + 
-                                           '"' + user["uid"] + '",' +
+                aTag.setAttribute('href', 'javascript:updateParticipant(' + 
                                            '"' + doc.id + '"' +
                                            ');');
 
@@ -305,79 +384,19 @@
         timestampsInSnapshots: true
     });
 
+    var oldListenerPath = null;
+
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             hideAuthContent();
+
             clearParticipantDiv();
 
             const path = buildParticipantPath(user["uid"]);
+
             var collRef = firestore.collection(path);
 
             collRef.onSnapshot(snapshotUpdateCall);
-
-            /*
-            collRef.onSnapshot(function(querySnapshot) {
-                console.log("update");
-                if (!querySnapshot.empty) { 
-                    //var headerText = (querySnapshot.size == 1) ? 
-                    //  "1 participant" : 
-                    //  querySnapshot.size + " participants";
-
-                    document.getElementById("nParticipantSpan").innerHTML = buildHeader(querySnapshot.size);
-                    document.getElementById("participantDiv").innerHTML = "";
-
-                    querySnapshot.forEach(function(doc) {
-                        const mData = doc.data();
-
-                        var aTag = document.createElement('a');
-                        aTag.setAttribute('href', 'javascript:updateChart(' + 
-                                                   '"' + user["uid"] + '",' +
-                                                   '"' + doc.id + '"' +
-                                                   ');');
-
-                        aTag.setAttribute('class', 'leading');
-                        aTag.innerHTML = mData.participantTag + " (" + doc.id + ")";
-                            document.getElementById("participantDiv").appendChild(aTag);
-
-                        var brTag = document.createElement('br');
-                            document.getElementById("participantDiv").appendChild(brTag);
-                            document.getElementById("participantDiv").appendChild(brTag);
-                    });
-                }
-            })
-            */
-
-            /*
-            collRef.get().then(function(querySnapshot) { 
-                if (!querySnapshot.empty) { 
-                    var headerText = (querySnapshot.size == 1) ? 
-                      "1 participant" : 
-                      querySnapshot.size + " participants";
-
-                    document.getElementById("nParticipantSpan").innerHTML = headerText;
-
-                    querySnapshot.forEach(function(doc) {
-                        const mData = doc.data();
-
-                        var aTag = document.createElement('a');
-                        aTag.setAttribute('href', 'javascript:updateChart(' + 
-                                                   '"' + user["uid"] + '",' +
-                                                   '"' + doc.id + '"' +
-                                                   ');');
-
-                        aTag.setAttribute('class', 'leading');
-                        aTag.innerHTML = mData.participantTag + " (" + doc.id + ")";
-                            document.getElementById("participantDiv").appendChild(aTag);
-
-                        var brTag = document.createElement('br');
-                            document.getElementById("participantDiv").appendChild(brTag);
-                            document.getElementById("participantDiv").appendChild(brTag);
-                    });
-                }
-            });
-            */
-
-            // TODO: pull participants and potentially edit
         } else {
             showAuthContent();
         }
