@@ -12,10 +12,9 @@
     firebase.initializeApp(config);
 
     var firestore = firebase.firestore();
+    firestore.settings({timestampsInSnapshots: true});
 
-    const docRef = firestore.doc("storage/SGuxyi1FZIdIr54SOG0CBserUkf2/participants");
-
-    firebase.initializeApp(config);
+    const docRef = firestore.collection("storage/SGuxyi1FZIdIr54SOG0CBserUkf2/participants");
 
     getRealtimeUpdates = function() {
         docRef.onSnapshot(function (doc) {
