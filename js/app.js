@@ -1,5 +1,4 @@
 //(function() {
-
     function login() {
         var userEmail = document.getElementById("email_field").value;
         var userPass  = document.getElementById("password_field").value;
@@ -169,7 +168,7 @@
         updateFigure();
     }
 
-    function updateParticipant(tag) {
+    function updateParticipant(tag, name) {
         const user = firebase.auth().currentUser;
         const currPath = buildDocumentPath(user["uid"], tag);
         
@@ -182,7 +181,7 @@
 
         var docRef = firestore.collection(currPath);
 
-        document.getElementById("tagParticipantSpan").innerHTML = tag;
+        document.getElementById("tagParticipantSpan").innerHTML = name;
 
         docRef.onSnapshot(function(querySnapshot) {
             var tableBody = document.getElementById("tableBody");
@@ -336,7 +335,8 @@
 
                 //
                 var aTag = document.createElement('a');
-                aTag.setAttribute('href', 'javascript:updateParticipant("' + doc.id + '");');
+                aTag.setAttribute('href', 'javascript:updateParticipant("' + doc.id + 
+                '","' + mData.participantTag + '");');
                 aTag.setAttribute('class', 'leading btn btn-raised');
                 aTag.innerHTML = "Load Progress";
 
@@ -383,7 +383,7 @@
         if (user) {
             hideAuthContent();
 
-            clearParticipantDiv();
+            //clearParticipantDiv();
 
             const path = buildParticipantPath(user["uid"]);
 
