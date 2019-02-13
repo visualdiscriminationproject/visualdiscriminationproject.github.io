@@ -38,7 +38,7 @@
 
             mPlotDifficulty.push({
                 x: i,
-                y: parseFloat(row.cells[2].innerText) * 100
+                y: parseFloat(row.cells[2].innerText)
             })
 
             mLabels.push('' + i);
