@@ -200,6 +200,10 @@
         });
     }
 
+    function editParticipant() {
+        console.log('editing');
+    }
+
     function addNewParticipant() {
         var pId  = document.getElementById("addParticipantTag").value;
         var pDes = document.getElementById("addParticipantDescription").value;
@@ -272,10 +276,6 @@
         }
     }
 
-    function clearParticipantDiv() {
-        document.getElementById("participantDiv").innerHTML = "";
-    }
-
     function buildHeader(size) {
         return (size == 1) ? "1 participant" : size + " participants";        
     }
@@ -346,11 +346,21 @@
 
                 //
                 aTag = document.createElement('a');
-                //aTag.setAttribute('href', 'javascript:updateParticipant("' + doc.id + '");');
-                aTag.setAttribute('class', 'leading btn btn-raised');
-                aTag.innerHTML = "Edit Session";
+                aTag.setAttribute('data-toggle', 'modal');
+                aTag.setAttribute('data-target', '#editParticipantModal');
 
-                cell     = document.createElement("td");
+                aTag.setAttribute('class', 'leading btn btn-raised open-sessionDialog');
+
+                aTag.setAttribute('data-id', doc.id);
+                aTag.setAttribute('data-participantTag', mData.participantTag);
+                aTag.setAttribute('data-descriptionTag', mData.descriptionTag);
+                aTag.setAttribute('data-difficultyLevel', mData.difficultyLevel);
+                aTag.setAttribute('data-displayTime', mData.displayTime);
+                aTag.setAttribute('data-trialNumbers', mData.trialNumbers);
+
+                aTag.innerHTML = "Edit Session Conditions";
+
+                cell = document.createElement("td");
                     cell.appendChild(aTag);
                     newRow.appendChild(cell);
 
@@ -383,8 +393,6 @@
         if (user) {
             hideAuthContent();
 
-            //clearParticipantDiv();
-
             const path = buildParticipantPath(user["uid"]);
 
             var collRef = firestore.collection(path);
@@ -394,4 +402,69 @@
             showAuthContent();
         }
     });
+
+    $(document).on("click", ".open-sessionDialog", function () {
+        var pTag = $(this).data('participanttag');
+
+        var recordId = $(this).data('id');
+        var pDesc = $(this).data('descriptiontag');
+        var pDiff = $(this).data('difficultylevel');
+        var pTime = $(this).data('displaytime');
+        var pSessions = $(this).data('trialnumbers');
+
+        $(".modal-body #editParticipantTag").val( pTag );
+        $(".modal-body #editParticipantDescription").val( pDesc );
+        $(".modal-body #editParticipantDifficulty").val( pDiff );
+        $(".modal-body #editParticipantDuration").val( pTime );
+        $(".modal-body #editParticipantTrials").val( pSessions );
+
+        $('#editParticipantSave').removeAttr('onclick');
+        $("#editParticipantSave").click(function() {
+            var pId  = document.getElementById("editParticipantTag").value;
+            var pDes = document.getElementById("editParticipantDescription").value;
+            var pDiff= document.getElementById("editParticipantDifficulty").value;
+            var pDur = document.getElementById("editParticipantDuration").value;
+            var pTrls= document.getElementById("editParticipantTrials").value;
+    
+            if (!$.isNumeric(pDiff)) {
+                alert("Difficulty must be a number.");
+                return;
+            }
+    
+            if (!$.isNumeric(pDur)) {
+                alert("Duration (seconds) must be a number.");
+                return;
+            }
+    
+            if (!$.isNumeric(pTrls)) {
+                alert("Trials (counts) must be a number.");
+                return;
+            }
+    
+            pDiff = parseInt(pDiff);
+            pDur  = parseInt(pDur);
+            pTrls = parseInt(pTrls);
+    
+            const user = firebase.auth().currentUser;
+            const path = buildParticipantPath(user["uid"]) + "/" + recordId;
+            
+            firestore.doc(path).update({
+                descriptionTag: pDes,
+                difficultyLevel: pDiff,
+                displayTime: pDur,
+                participantTag: pId,
+                trialNumbers: pTrls
+            }).then(function(docRef) {
+                $('#editParticipantModal').modal('hide');
+    
+                document.getElementById("editParticipantTag").value          = "";
+                document.getElementById("editParticipantDescription").value  = "";
+                document.getElementById("editParticipantDifficulty").value   = "";
+                document.getElementById("editParticipantDuration").value     = "";
+                document.getElementById("editParticipantTrials").value       = "";
+            }).catch(function(err) {
+                alert(err);
+            });
+        });
+   });
 //})
