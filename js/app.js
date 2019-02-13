@@ -418,9 +418,8 @@
         $(".modal-body #editParticipantDuration").val( pTime );
         $(".modal-body #editParticipantTrials").val( pSessions );
 
-        $('#editParticipantSave').removeAttr('onclick');
-        $("#editParticipantSave").click(function() {
-            /*
+        $('#editParticipantSave').click(null);
+        $("#editParticipantSave").unbind().click(function() {
             var pId  = document.getElementById("editParticipantTag").value;
             var pDes = document.getElementById("editParticipantDescription").value;
             var pDiff= document.getElementById("editParticipantDifficulty").value;
@@ -466,7 +465,8 @@
             }).catch(function(err) {
                 alert(err);
             });
-            */
+
+           $('#editParticipantSave').click(null);
         });
    });
 //})
