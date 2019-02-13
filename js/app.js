@@ -286,21 +286,75 @@
             document.getElementById("nParticipantSpan").innerHTML = buildHeader(querySnapshot.size);
             document.getElementById("participantDiv").innerHTML = "";
 
+            var tableBody = document.getElementById("tableBody2");
+            tableBody.innerHTML = "";
+
             querySnapshot.forEach(function(doc) {
                 const mData = doc.data();
 
+                var newRow = document.createElement("tr");
+
+                //
+                var cell     = document.createElement("td");
+                var cellText = document.createTextNode(mData.participantTag);
+                    cell.appendChild(cellText);
+                    newRow.appendChild(cell);
+
+                tableBody.appendChild(newRow);
+
+                //
+                cell     = document.createElement("td");
+                cellText = document.createTextNode(mData.descriptionTag);
+                    cell.appendChild(cellText);
+                    newRow.appendChild(cell);
+
+                tableBody.appendChild(newRow);
+
+                //
+                cell     = document.createElement("td");
+                cellText = document.createTextNode(mData.difficultyLevel);
+                    cell.appendChild(cellText);
+                    newRow.appendChild(cell);
+
+                tableBody.appendChild(newRow);
+
+                //
+                cell     = document.createElement("td");
+                cellText = document.createTextNode(mData.displayTime);
+                    cell.appendChild(cellText);
+                    newRow.appendChild(cell);
+
+                tableBody.appendChild(newRow);
+
+                //
+                cell     = document.createElement("td");
+                cellText = document.createTextNode(mData.trialNumbers);
+                    cell.appendChild(cellText);
+                    newRow.appendChild(cell);
+
+                tableBody.appendChild(newRow);
+
+                //
                 var aTag = document.createElement('a');
                 aTag.setAttribute('href', 'javascript:updateParticipant("' + doc.id + '");');
-                aTag.setAttribute('class', 'leading');
-                //aTag.style.height = "150px";
-                //.setAttribute('style', 'line-height:1em');
+                aTag.setAttribute('class', 'leading btn btn-raised');
+                aTag.innerHTML = "Load Progress";
 
-                aTag.innerHTML = mData.participantTag + " (" + doc.id + ")";
-                    document.getElementById("participantDiv").appendChild(aTag);
+                cell     = document.createElement("td");
+                    cell.appendChild(aTag);
+                    newRow.appendChild(cell);
 
-                var brTag = document.createElement('br');
-                    document.getElementById("participantDiv").appendChild(brTag);
-                    document.getElementById("participantDiv").appendChild(brTag);
+                //
+                aTag = document.createElement('a');
+                //aTag.setAttribute('href', 'javascript:updateParticipant("' + doc.id + '");');
+                aTag.setAttribute('class', 'leading btn btn-raised');
+                aTag.innerHTML = "Edit Session";
+
+                cell     = document.createElement("td");
+                    cell.appendChild(aTag);
+                    newRow.appendChild(cell);
+
+                tableBody.appendChild(newRow);
             });
         }
     }
