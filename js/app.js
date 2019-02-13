@@ -420,6 +420,7 @@
 
         $('#editParticipantSave').removeAttr('onclick');
         $("#editParticipantSave").click(function() {
+            /*
             var pId  = document.getElementById("editParticipantTag").value;
             var pDes = document.getElementById("editParticipantDescription").value;
             var pDiff= document.getElementById("editParticipantDifficulty").value;
@@ -465,6 +466,7 @@
             }).catch(function(err) {
                 alert(err);
             });
+            */
         });
    });
 //})
