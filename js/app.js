@@ -286,7 +286,7 @@
         tableBody.innerHTML = "";
 
         data = [];
-        data.push(['Date', 'Difficulty', 'Trial Count', 's1c1', 's1c2', 's2c1', 's2c2']);
+        data.push(['Date', 'Difficulty', 'Trial Count', 'Accuracy', 's1c1', 's1c2', 's2c1', 's2c2']);
 
         prePlotter.forEach(function(row) {
             var newRow = document.createElement("tr");
@@ -337,7 +337,7 @@
 
             tableBody.appendChild(newRow);
 
-            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, 
+            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, (row.correctAnswers / (row.trialCount)) * 100,
                 row.s1c1, row.s1c2, row.s2c1, row.s2c2]);
         });
 
@@ -349,7 +349,7 @@
         tableBody.innerHTML = "";
 
         data = [];
-        data.push(['Date', 'Difficulty', 'Trial Count', 's1c1', 's1c2', 's2c1', 's2c2']);
+        data.push(['Date', 'Difficulty', 'Trial Count', 'Accuracy', 's1c1', 's1c2', 's2c1', 's2c2']);
 
         prePlotter.forEach(function(row) {
             var newRow = document.createElement("tr");
@@ -400,7 +400,7 @@
 
             tableBody.appendChild(newRow);
 
-            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, 
+            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, (row.correctAnswers / (row.trialCount)) * 100,
                 row.s1c1, row.s1c2, row.s2c1, row.s2c2]);
         });
 
@@ -412,7 +412,7 @@
         tableBody.innerHTML = "";
 
         data = [];
-        data.push(['Date', 'Difficulty', 'Trial Count', 's1c1', 's1c2', 's2c1', 's2c2']);
+        data.push(['Date', 'Difficulty', 'Trial Count', 'Accuracy', 's1c1', 's1c2', 's2c1', 's2c2']);
 
         prePlotter.forEach(function(row) {
             var newRow = document.createElement("tr");
@@ -463,7 +463,7 @@
 
             tableBody.appendChild(newRow);
 
-            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, 
+            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, (row.correctAnswers / (row.trialCount)) * 100,
                 row.s1c1, row.s1c2, row.s2c1, row.s2c2]);
         });
 
