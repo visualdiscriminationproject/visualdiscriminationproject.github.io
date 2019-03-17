@@ -23,6 +23,14 @@
         return "storage/" + id + "/participants/" + tag + "/sessions";
     }
 
+    function buildDocumentPath1s1c(id, tag) {
+        return "storage/" + id + "/participants/" + tag + "/practice1stim";
+    }
+
+    function buildDocumentPath1s2c(id, tag) {
+        return "storage/" + id + "/participants/" + tag + "/practice2stim";
+    }
+
     function updateFigure() {
         var mLabels = [];
 
@@ -79,6 +87,152 @@
                 scales: {
                     xAxes: [{
                         //type: 'time',
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Session'
+                        },
+                        ticks: {
+                            major: {
+                                fontStyle: 'bold',
+                                fontColor: '#FF0000'
+                            }
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Accuracy'
+                        },
+                        ticks: {
+                            suggestedMin: 0,
+                        }
+                    }]
+                }
+            }
+        };
+
+        var ctx = document.getElementById('canvas').getContext('2d');
+        
+        window.myLine = new Chart(ctx, config);
+        window.myLine.update();
+    }
+
+    function updateFigure1s1c() {
+        var mLabels = [];
+        var mPlotData = [];
+
+        var table = document.getElementById("tableBody");
+
+        for (var i = 0, row; row = table.rows[i]; i++) {
+            mPlotData.push({
+                x: i,
+                y: parseFloat(row.cells[6].innerText)
+            });
+
+            mLabels.push('' + i);
+        }
+
+        var config = {
+            type: 'line',
+            data: {
+                labels: mLabels,
+                datasets: [
+                    {
+                        label: 'Accuracy',
+                        data: mPlotData,
+                        borderColor: window.chartColors.green,
+                        backgroundColor: 'rgba(0, 0, 0, 0)',
+                        fill: false,
+                        lineTension: 0,
+                    },
+                ]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Participant Training (1s1c)'
+                },
+                tooltips: {
+                    mode: 'index'
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Session'
+                        },
+                        ticks: {
+                            major: {
+                                fontStyle: 'bold',
+                                fontColor: '#FF0000'
+                            }
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Accuracy'
+                        },
+                        ticks: {
+                            suggestedMin: 0,
+                        }
+                    }]
+                }
+            }
+        };
+
+        var ctx = document.getElementById('canvas').getContext('2d');
+        
+        window.myLine = new Chart(ctx, config);
+        window.myLine.update();
+    }
+
+    function updateFigure1s2c() {
+        var mLabels = [];
+        var mPlotData = [];
+
+        var table = document.getElementById("tableBody");
+
+        for (var i = 0, row; row = table.rows[i]; i++) {
+            mPlotData.push({
+                x: i,
+                y: parseFloat(row.cells[6].innerText)
+            });
+
+            mLabels.push('' + i);
+        }
+
+        var config = {
+            type: 'line',
+            data: {
+                labels: mLabels,
+                datasets: [
+                    {
+                        label: 'Accuracy',
+                        data: mPlotData,
+                        borderColor: window.chartColors.green,
+                        backgroundColor: 'rgba(0, 0, 0, 0)',
+                        fill: false,
+                        lineTension: 0,
+                    },
+                ]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Participant Training (1s2c)'
+                },
+                tooltips: {
+                    mode: 'index'
+                },
+                scales: {
+                    xAxes: [{
                         display: true,
                         scaleLabel: {
                             display: true,
@@ -168,6 +322,120 @@
         updateFigure();
     }
 
+    function updateTable1s1c(prePlotter) {
+        var tableBody = document.getElementById("tableBody");
+        tableBody.innerHTML = "";
+
+        prePlotter.forEach(function(row) {
+            var newRow = document.createElement("tr");
+
+            // Session Date
+            var cell     = document.createElement("td");
+            var cellText = document.createTextNode(row.sessionDate);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            // Display time
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(0);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            // difficultyLevel
+            cell     = document.createElement("td");
+            cellText = document.createTextNode('---');
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            // trialCount
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(row.trialCount);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            // correctAnswers
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(row.correctAnswers);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            // 
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(row.wrongAnswers);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            tableBody.appendChild(newRow);
+
+            // 
+            cell     = document.createElement("td");
+            cellText = document.createTextNode((row.correctAnswers / (row.trialCount)) * 100);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            tableBody.appendChild(newRow);
+        });
+
+        updateFigure1s1c();
+    }
+
+    function updateTable1s2c(prePlotter) {
+        var tableBody = document.getElementById("tableBody");
+        tableBody.innerHTML = "";
+
+        prePlotter.forEach(function(row) {
+            var newRow = document.createElement("tr");
+
+            // Session Date
+            var cell     = document.createElement("td");
+            var cellText = document.createTextNode(row.sessionDate);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            // Display time
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(0);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            // difficultyLevel
+            cell     = document.createElement("td");
+            cellText = document.createTextNode('---');
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            // trialCount
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(row.trialCount);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            // correctAnswers
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(row.correctAnswers);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            // 
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(row.wrongAnswers);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            tableBody.appendChild(newRow);
+
+            // 
+            cell     = document.createElement("td");
+            cellText = document.createTextNode((row.correctAnswers / (row.trialCount)) * 100);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            tableBody.appendChild(newRow);
+        });
+
+        updateFigure1s2c();
+    }
+
     function updateParticipant(tag, name) {
         const user = firebase.auth().currentUser;
         const currPath = buildDocumentPath(user["uid"], tag);
@@ -197,6 +465,70 @@
             }
 
             updateTable(prePlotter);
+        });
+    }
+
+    function updateParticipant1s1c(tag, name) {
+        const user = firebase.auth().currentUser;
+
+        const currPath = buildDocumentPath1s1c(user["uid"], tag);
+        
+        if (oldListenerPath != null || oldListenerPath == currPath ) {
+            var unsubscribe = firestore.collection(oldListenerPath).onSnapshot(function () {});
+            unsubscribe();
+        }
+
+        oldListenerPath = currPath;
+
+        var docRef = firestore.collection(currPath);
+
+        document.getElementById("tagParticipantSpan").innerHTML = name;
+
+        docRef.onSnapshot(function(querySnapshot) {
+            var tableBody = document.getElementById("tableBody");
+            tableBody.innerHTML = "";
+            var prePlotter = [];
+
+            if (!querySnapshot.empty) {
+                querySnapshot.forEach(function(doc) {
+                    const mData = doc.data();
+                    prePlotter.push(mData);
+                });
+            }
+
+            updateTable1s1c(prePlotter);
+        });
+    }
+
+    function updateParticipant1s2c(tag, name) {
+        const user = firebase.auth().currentUser;
+
+        const currPath = buildDocumentPath1s2c(user["uid"], tag);
+        
+        if (oldListenerPath != null || oldListenerPath == currPath ) {
+            var unsubscribe = firestore.collection(oldListenerPath).onSnapshot(function () {});
+            unsubscribe();
+        }
+
+        oldListenerPath = currPath;
+
+        var docRef = firestore.collection(currPath);
+
+        document.getElementById("tagParticipantSpan").innerHTML = name;
+
+        docRef.onSnapshot(function(querySnapshot) {
+            var tableBody = document.getElementById("tableBody");
+            tableBody.innerHTML = "";
+            var prePlotter = [];
+
+            if (!querySnapshot.empty) {
+                querySnapshot.forEach(function(doc) {
+                    const mData = doc.data();
+                    prePlotter.push(mData);
+                });
+            }
+
+            updateTable1s2c(prePlotter);
         });
     }
 
@@ -335,6 +667,8 @@
 
                 //
                 var aTag = document.createElement('a');
+                aTag.setAttribute('href', 'javascript:updateParticipant1s1c("' + doc.id + 
+                '","' + mData.participantTag + '");');
                 aTag.setAttribute('class', 'leading btn btn-raised');
                 aTag.innerHTML = "Load 1s1c";
 
@@ -344,6 +678,8 @@
 
                 //
                 aTag = document.createElement('a');
+                aTag.setAttribute('href', 'javascript:updateParticipant1s2c("' + doc.id + 
+                '","' + mData.participantTag + '");');
                 aTag.setAttribute('class', 'leading btn btn-raised');
                 aTag.innerHTML = "Load 1s2c";
 
