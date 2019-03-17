@@ -335,6 +335,24 @@
 
                 //
                 var aTag = document.createElement('a');
+                aTag.setAttribute('class', 'leading btn btn-raised');
+                aTag.innerHTML = "Load 1s1c";
+
+                cell     = document.createElement("td");
+                    cell.appendChild(aTag);
+                    newRow.appendChild(cell);
+
+                //
+                aTag = document.createElement('a');
+                aTag.setAttribute('class', 'leading btn btn-raised');
+                aTag.innerHTML = "Load 1s2c";
+
+                cell     = document.createElement("td");
+                    cell.appendChild(aTag);
+                    newRow.appendChild(cell);
+
+                //
+                aTag = document.createElement('a');
                 aTag.setAttribute('href', 'javascript:updateParticipant("' + doc.id + 
                 '","' + mData.participantTag + '");');
                 aTag.setAttribute('class', 'leading btn btn-raised');
@@ -358,7 +376,7 @@
                 aTag.setAttribute('data-displayTime', mData.displayTime);
                 aTag.setAttribute('data-trialNumbers', mData.trialNumbers);
 
-                aTag.innerHTML = "Edit Session Conditions";
+                aTag.innerHTML = "Edit Session";
 
                 cell = document.createElement("td");
                     cell.appendChild(aTag);
