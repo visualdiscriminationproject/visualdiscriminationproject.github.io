@@ -15,6 +15,22 @@
         firebase.auth().signOut();
     }
 
+    function download() {
+        var csv = '';
+        data.forEach(function(row) {
+            csv += row.join(',');
+            csv += "\n";
+        });
+
+        var hiddenElement = document.createElement('a');
+        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = 'download.csv';
+        hiddenElement.click();
+
+        console.log(csv);
+    }
+
     function buildParticipantPath(id) {
         return "storage/" + id + "/participants";
     }
@@ -269,6 +285,9 @@
         var tableBody = document.getElementById("tableBody");
         tableBody.innerHTML = "";
 
+        data = [];
+        data.push(['Date', 'Difficulty', 'Trial Count', 's1c1', 's1c2', 's2c1', 's2c2']);
+
         prePlotter.forEach(function(row) {
             var newRow = document.createElement("tr");
 
@@ -317,6 +336,9 @@
             newRow.appendChild(cell);
 
             tableBody.appendChild(newRow);
+
+            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, 
+                row.s1c1, row.s1c2, row.s2c1, row.s2c2]);
         });
 
         updateFigure();
@@ -326,6 +348,9 @@
         var tableBody = document.getElementById("tableBody");
         tableBody.innerHTML = "";
 
+        data = [];
+        data.push(['Date', 'Difficulty', 'Trial Count', 's1c1', 's1c2', 's2c1', 's2c2']);
+
         prePlotter.forEach(function(row) {
             var newRow = document.createElement("tr");
 
@@ -374,6 +399,9 @@
             newRow.appendChild(cell);
 
             tableBody.appendChild(newRow);
+
+            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, 
+                row.s1c1, row.s1c2, row.s2c1, row.s2c2]);
         });
 
         updateFigure1s1c();
@@ -383,6 +411,9 @@
         var tableBody = document.getElementById("tableBody");
         tableBody.innerHTML = "";
 
+        data = [];
+        data.push(['Date', 'Difficulty', 'Trial Count', 's1c1', 's1c2', 's2c1', 's2c2']);
+
         prePlotter.forEach(function(row) {
             var newRow = document.createElement("tr");
 
@@ -431,6 +462,9 @@
             newRow.appendChild(cell);
 
             tableBody.appendChild(newRow);
+
+            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, 
+                row.s1c1, row.s1c2, row.s2c1, row.s2c2]);
         });
 
         updateFigure1s2c();
@@ -722,6 +756,8 @@
             });
         }
     }
+
+    var data = [];
 
     // init db
     var config = {
