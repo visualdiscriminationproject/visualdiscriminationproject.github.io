@@ -329,9 +329,9 @@
 
             tableBody.appendChild(newRow);
 
-            // correctAnswers
+            // percentage correct
             cell     = document.createElement("td");
-            cellText = document.createTextNode((row.correctAnswers / (row.wrongAnswers + row.correctAnswers - row.skippedTrials)) * 100);
+            cellText = document.createTextNode((row.correctAnswers / (row.wrongAnswers + row.correctAnswers)) * 100);
             cell.appendChild(cellText);
             newRow.appendChild(cell);
 
@@ -361,7 +361,7 @@
 
             tableBody.appendChild(newRow);
 
-            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, (row.correctAnswers / (row.trialCount - row.skippedTrials)) * 100,
+            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, (row.correctAnswers / (row.wrongAnswers + row.correctAnswers)) * 100,
                 row.s1c1, row.s1c2, row.s2c1, row.s2c2, row.corLeft, row.corRght, row.errLeft, row.errRght, row.skippedTrials, row.correctAnswers, row.wrongAnswers]);
         });
 
@@ -416,9 +416,9 @@
 
             tableBody.appendChild(newRow);
 
-            // 
+            // percentage correct
             cell     = document.createElement("td");
-            cellText = document.createTextNode((row.correctAnswers / (row.trialCount - row.skippedTrials)) * 100);
+            cellText = document.createTextNode((row.correctAnswers / (row.wrongAnswers + row.correctAnswers)) * 100);
             cell.appendChild(cellText);
             newRow.appendChild(cell);
 
@@ -448,7 +448,7 @@
 
             tableBody.appendChild(newRow);
 
-            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, (row.correctAnswers / (row.trialCount - row.skippedTrials)) * 100,
+            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, (row.correctAnswers / (row.wrongAnswers + row.correctAnswers)) * 100,
                 row.s1c1, row.s1c2, row.s2c1, row.s2c2, row.corLeft, row.corRght, row.errLeft, row.errRght, row.skippedTrials, row.correctAnswers, row.wrongAnswers]);
         });
 
@@ -503,9 +503,9 @@
 
             tableBody.appendChild(newRow);
 
-            // 
+            // percentage correct
             cell     = document.createElement("td");
-            cellText = document.createTextNode((row.correctAnswers / (row.trialCount - row.skippedTrials)) * 100);
+            cellText = document.createTextNode((row.correctAnswers / (row.wrongAnswers + row.correctAnswers)) * 100);
             cell.appendChild(cellText);
             newRow.appendChild(cell);
 
@@ -535,7 +535,7 @@
 
             tableBody.appendChild(newRow);
 
-            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, (row.correctAnswers / (row.trialCount - row.skippedTrials)) * 100,
+            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, (row.correctAnswers / (row.wrongAnswers + row.correctAnswers)) * 100,
                 row.s1c1, row.s1c2, row.s2c1, row.s2c2, row.corLeft, row.corRght, row.errLeft, row.errRght, row.skippedTrials, row.correctAnswers, row.wrongAnswers]);
         });
 
