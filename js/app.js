@@ -286,7 +286,7 @@
         tableBody.innerHTML = "";
 
         data = [];
-        data.push(['Date', 'Difficulty', 'Trial Count', 'Accuracy', 's1c1', 's1c2', 's2c1', 's2c2']);
+        data.push(['Date', 'Difficulty', 'Trial Count', 'Accuracy', 's1c1', 's1c2', 's2c1', 's2c2', 'corLeft', 'corRight', 'wrngLeft', 'wrngRight', 'skipped', 'correct', 'incorrect']);
 
         prePlotter.forEach(function(row) {
             var newRow = document.createElement("tr");
@@ -331,14 +331,38 @@
 
             // correctAnswers
             cell     = document.createElement("td");
-            cellText = document.createTextNode((row.correctAnswers / (row.wrongAnswers + row.correctAnswers)) * 100);
+            cellText = document.createTextNode((row.correctAnswers / (row.wrongAnswers + row.correctAnswers - row.skippedTrials)) * 100);
             cell.appendChild(cellText);
             newRow.appendChild(cell);
 
             tableBody.appendChild(newRow);
 
-            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, (row.correctAnswers / (row.trialCount)) * 100,
-                row.s1c1, row.s1c2, row.s2c1, row.s2c2]);
+            var gridSize = row.trialCount / 4;
+
+            var logD = 0.5 * Math.log(((row.s1c1 + constant) / (gridSize - row.s1c1 + constant)) * 
+                                      ((row.s2c2 + constant) / (gridSize - row.s2c2 + constant)));
+
+            // log d
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(logD);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            tableBody.appendChild(newRow);
+
+            var logB = 0.5 * Math.log(((row.corLeft + constant) / (row.corRght + constant)) * 
+                                      ((row.errLeft + constant) / (row.errRght + constant)));
+
+            // log b
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(logB);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            tableBody.appendChild(newRow);
+
+            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, (row.correctAnswers / (row.trialCount - row.skippedTrials)) * 100,
+                row.s1c1, row.s1c2, row.s2c1, row.s2c2, row.corLeft, row.corRght, row.errLeft, row.errRght, row.skippedTrials, row.correctAnswers, row.wrongAnswers]);
         });
 
         updateFigure();
@@ -349,7 +373,7 @@
         tableBody.innerHTML = "";
 
         data = [];
-        data.push(['Date', 'Difficulty', 'Trial Count', 'Accuracy', 's1c1', 's1c2', 's2c1', 's2c2']);
+        data.push(['Date', 'Difficulty', 'Trial Count', 'Accuracy', 's1c1', 's1c2', 's2c1', 's2c2', 'corLeft', 'corRight', 'wrngLeft', 'wrngRight', 'skipped', 'correct', 'incorrect']);
 
         prePlotter.forEach(function(row) {
             var newRow = document.createElement("tr");
@@ -394,14 +418,38 @@
 
             // 
             cell     = document.createElement("td");
-            cellText = document.createTextNode((row.correctAnswers / (row.trialCount)) * 100);
+            cellText = document.createTextNode((row.correctAnswers / (row.trialCount - row.skippedTrials)) * 100);
             cell.appendChild(cellText);
             newRow.appendChild(cell);
 
             tableBody.appendChild(newRow);
 
-            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, (row.correctAnswers / (row.trialCount)) * 100,
-                row.s1c1, row.s1c2, row.s2c1, row.s2c2]);
+            var gridSize = row.trialCount / 4;
+
+            var logD = 0.5 * Math.log(((row.s1c1 + constant) / (gridSize - row.s1c1 + constant)) * 
+                                      ((row.s2c2 + constant) / (gridSize - row.s2c2 + constant)));
+
+            // log d
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(logD);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            tableBody.appendChild(newRow);
+
+            var logB = 0.5 * Math.log(((row.corLeft + constant) / (row.corRght + constant)) * 
+                                      ((row.errLeft + constant) / (row.errRght + constant)));
+
+            // log b
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(logB);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            tableBody.appendChild(newRow);
+
+            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, (row.correctAnswers / (row.trialCount - row.skippedTrials)) * 100,
+                row.s1c1, row.s1c2, row.s2c1, row.s2c2, row.corLeft, row.corRght, row.errLeft, row.errRght, row.skippedTrials, row.correctAnswers, row.wrongAnswers]);
         });
 
         updateFigure1s1c();
@@ -412,7 +460,7 @@
         tableBody.innerHTML = "";
 
         data = [];
-        data.push(['Date', 'Difficulty', 'Trial Count', 'Accuracy', 's1c1', 's1c2', 's2c1', 's2c2']);
+        data.push(['Date', 'Difficulty', 'Trial Count', 'Accuracy', 's1c1', 's1c2', 's2c1', 's2c2', 'corLeft', 'corRight', 'wrngLeft', 'wrngRight', 'skipped', 'correct', 'incorrect']);
 
         prePlotter.forEach(function(row) {
             var newRow = document.createElement("tr");
@@ -457,14 +505,38 @@
 
             // 
             cell     = document.createElement("td");
-            cellText = document.createTextNode((row.correctAnswers / (row.trialCount)) * 100);
+            cellText = document.createTextNode((row.correctAnswers / (row.trialCount - row.skippedTrials)) * 100);
             cell.appendChild(cellText);
             newRow.appendChild(cell);
 
             tableBody.appendChild(newRow);
 
-            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, (row.correctAnswers / (row.trialCount)) * 100,
-                row.s1c1, row.s1c2, row.s2c1, row.s2c2]);
+            var gridSize = row.trialCount / 4;
+
+            var logD = 0.5 * Math.log(((row.s1c1 + constant) / (gridSize - row.s1c1 + constant)) * 
+                                      ((row.s2c2 + constant) / (gridSize - row.s2c2 + constant)));
+
+            // log d
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(logD);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            tableBody.appendChild(newRow);
+
+            var logB = 0.5 * Math.log(((row.corLeft + constant) / (row.corRght + constant)) * 
+                                      ((row.errLeft + constant) / (row.errRght + constant)));
+
+            // log b
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(logB);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            tableBody.appendChild(newRow);
+
+            data.push([row.sessionDate, row.difficultyLevel, row.trialCount, (row.correctAnswers / (row.trialCount - row.skippedTrials)) * 100,
+                row.s1c1, row.s1c2, row.s2c1, row.s2c2, row.corLeft, row.corRght, row.errLeft, row.errRght, row.skippedTrials, row.correctAnswers, row.wrongAnswers]);
         });
 
         updateFigure1s2c();
@@ -778,6 +850,8 @@
     });
 
     var oldListenerPath = null;
+
+    var constant = 0.25;
 
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
