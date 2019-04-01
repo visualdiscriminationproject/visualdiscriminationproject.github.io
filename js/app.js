@@ -676,7 +676,8 @@
             difficultyLevel: pDiff,
             displayTime: pDur,
             participantTag: pId,
-            trialNumbers: pTrls
+            trialNumbers: pTrls,
+            itiTime: 1
         }).then(function(docRef) {
             $('#addParticipantModal').modal('hide');
 
