@@ -338,10 +338,10 @@
 
             tableBody.appendChild(newRow);
 
-            var gridSize = row.trialCount / 2;
+            var minCount = row.trialCount / 4;
 
-            var logD = 0.5 * Math.log(((row.s1c1 + constant) / (gridSize - row.s1c1 + constant)) * 
-                                      ((row.s2c2 + constant) / (gridSize - row.s2c2 + constant)));
+            var logD = 0.5 * Math.log((((row.s1c1 + row.s1c2) + constant) * (minCount - (row.s1c1 + row.s1c2) + constant)) * 
+                                      (((row.s2c1 + row.s2c2) + constant) * (minCount - (row.s2c1 + row.s2c2) + constant)));
 
             // log d
             cell     = document.createElement("td");
@@ -523,7 +523,7 @@
 
             // log d
             cell     = document.createElement("td");
-            cellText = document.createTextNode(logD);
+            cellText = document.createTextNode("---");
             cell.appendChild(cellText);
             newRow.appendChild(cell);
 
@@ -534,7 +534,7 @@
 
             // log b
             cell     = document.createElement("td");
-            cellText = document.createTextNode(logB);
+            cellText = document.createTextNode("---");
             cell.appendChild(cellText);
             newRow.appendChild(cell);
 
