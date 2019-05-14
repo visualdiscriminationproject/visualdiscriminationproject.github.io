@@ -338,10 +338,6 @@
 
             tableBody.appendChild(newRow);
 
-            var minCount = row.trialCount / 4;
-
-            console.log(row)
-
             var logD =(
                 Math.log10((row.correctAnswers + 0.25)/(row.wrongAnswers + 0.25)) +
                 Math.log10((row.correctAnswers + 0.25)/(row.wrongAnswers + 0.25))
@@ -355,7 +351,7 @@
 
             tableBody.appendChild(newRow);
 
-            var logB = 0.5 * Math.log(((row.corLeft + constant) / (row.corRght + constant)) * 
+            var logB = 0.5 * Math.log10(((row.corLeft + constant) / (row.corRght + constant)) * 
                                       ((row.errLeft + constant) / (row.errRght + constant)));
 
             // log b
@@ -433,7 +429,7 @@
 
             var gridSize = row.trialCount / 2;
 
-            var logD = 0.5 * Math.log(((row.s1c1 + constant) / (gridSize - row.s1c1 + constant)) * 
+            var logD = 0.5 * Math.log10(((row.s1c1 + constant) / (gridSize - row.s1c1 + constant)) * 
                                       ((row.s2c2 + constant) / (gridSize - row.s2c2 + constant)));
 
             // log d
@@ -444,7 +440,7 @@
 
             tableBody.appendChild(newRow);
 
-            var logB = 0.5 * Math.log(((row.corLeft + constant) / (row.corRght + constant)) * 
+            var logB = 0.5 * Math.log10(((row.corLeft + constant) / (row.corRght + constant)) * 
                                       ((row.errLeft + constant) / (row.errRght + constant)));
 
             // log b
@@ -522,7 +518,7 @@
 
             var gridSize = row.trialCount / 2;
 
-            var logD = 0.5 * Math.log(((row.s1c1 + constant) / (gridSize - row.s1c1 + constant)) * 
+            var logD = 0.5 * Math.log10(((row.s1c1 + constant) / (gridSize - row.s1c1 + constant)) * 
                                       ((row.s2c2 + constant) / (gridSize - row.s2c2 + constant)));
 
             // log d
@@ -533,7 +529,7 @@
 
             tableBody.appendChild(newRow);
 
-            var logB = 0.5 * Math.log(((row.corLeft + constant) / (row.corRght + constant)) * 
+            var logB = 0.5 * Math.log10(((row.corLeft + constant) / (row.corRght + constant)) * 
                                       ((row.errLeft + constant) / (row.errRght + constant)));
 
             // log b
