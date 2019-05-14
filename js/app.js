@@ -340,8 +340,15 @@
 
             var minCount = row.trialCount / 4;
 
-            var logD = 0.5 * Math.log((((row.s1c1 + row.s1c2) + constant) * (minCount - (row.s1c1 + row.s1c2) + constant)) * 
-                                      (((row.s2c1 + row.s2c2) + constant) * (minCount - (row.s2c1 + row.s2c2) + constant)));
+            console.log(row)
+
+            var logD =(
+                Math.log10((row.correctAnswers + 0.25)/(row.wrongAnswers + 0.25)) +
+                Math.log10((row.correctAnswers + 0.25)/(row.wrongAnswers + 0.25))
+            )/2.0;
+
+            //var logD = 0.5 * Math.log((((row.s1c1 + row.s1c2) + constant) * (minCount - (row.s1c1 + row.s1c2) + constant)) * 
+            //                          (((row.s2c1 + row.s2c2) + constant) * (minCount - (row.s2c1 + row.s2c2) + constant)));
 
             // log d
             cell     = document.createElement("td");
