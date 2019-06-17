@@ -57,12 +57,12 @@
         for (var i = 0, row; row = table.rows[i]; i++) {
             mPlotData.push({
                 x: i,
-                y: parseFloat(row.cells[6].innerText)
+                y: parseFloat(row.cells[7].innerText).toFixed(2)
             });
 
             mPlotDifficulty.push({
                 x: i,
-                y: parseFloat(row.cells[2].innerText)
+                y: parseFloat(row.cells[3].innerText).toFixed(2)
             })
 
             mLabels.push('' + i);
@@ -144,7 +144,7 @@
         for (var i = 0, row; row = table.rows[i]; i++) {
             mPlotData.push({
                 x: i,
-                y: parseFloat(row.cells[6].innerText)
+                y: parseFloat(row.cells[6].innerText).toFixed(2)
             });
 
             mLabels.push('' + i);
@@ -217,7 +217,7 @@
         for (var i = 0, row; row = table.rows[i]; i++) {
             mPlotData.push({
                 x: i,
-                y: parseFloat(row.cells[6].innerText)
+                y: parseFloat(row.cells[6].innerText).toFixed(2)
             });
 
             mLabels.push('' + i);
@@ -285,16 +285,24 @@
         var tableBody = document.getElementById("tableBody");
         tableBody.innerHTML = "";
 
+        var rowId = 0;
+
         data = [];
-        data.push(['Date', 'Difficulty', 'Trial Count', 'Accuracy', 's1c1', 's1c2', 's2c1', 's2c2', 'corLeft', 'corRight', 'wrngLeft', 'wrngRight', 'skipped', 'correct', 'incorrect', 
+        data.push(['ID', 'Date', 'Difficulty', 'Trial Count', 'Accuracy', 's1c1', 's1c2', 's2c1', 's2c2', 'corLeft', 'corRight', 'wrngLeft', 'wrngRight', 'skipped', 'correct', 'incorrect', 
         's1corL', 's1corR','s1errL', 's1errR', 's2corL', 's2corR','s2errL', 's2errR', 'latencyCorrect', 'latencyIncorrect']);
 
         prePlotter.forEach(function(row) {
             var newRow = document.createElement("tr");
 
-            // Session Date
+            // Session Num
             var cell     = document.createElement("td");
-            var cellText = document.createTextNode(row.sessionDate);
+            var cellText = document.createTextNode(rowId);
+            cell.appendChild(cellText);
+            newRow.appendChild(cell);
+
+            // Session Date
+            cell     = document.createElement("td");
+            cellText = document.createTextNode(row.sessionDate);
             cell.appendChild(cellText);
             newRow.appendChild(cell);
 
@@ -332,7 +340,7 @@
 
             // percentage correct
             cell     = document.createElement("td");
-            cellText = document.createTextNode((row.correctAnswers / (row.wrongAnswers + row.correctAnswers)) * 100);
+            cellText = document.createTextNode(((row.correctAnswers / (row.wrongAnswers + row.correctAnswers)) * 100).toFixed(2));
             cell.appendChild(cellText);
             newRow.appendChild(cell);
 
@@ -345,7 +353,7 @@
 
             // log d
             cell     = document.createElement("td");
-            cellText = document.createTextNode(logD);
+            cellText = document.createTextNode(logD.toFixed(2));
             cell.appendChild(cellText);
             newRow.appendChild(cell);
 
@@ -356,7 +364,7 @@
 
             // log b
             cell     = document.createElement("td");
-            cellText = document.createTextNode(logB);
+            cellText = document.createTextNode(logB.toFixed(2));
             cell.appendChild(cellText);
             newRow.appendChild(cell);
 
@@ -365,6 +373,8 @@
             data.push([row.sessionDate, row.difficultyLevel, row.trialCount, (row.correctAnswers / (row.wrongAnswers + row.correctAnswers)) * 100,
                 row.s1c1, row.s1c2, row.s2c1, row.s2c2, row.corLeft, row.corRght, row.errLeft, row.errRght, row.skippedTrials, row.correctAnswers, row.wrongAnswers,
                 row.s1corL, row.s1corR, row.s1errL, row.s1errR, row.s2corL, row.s2corR, row.s2errL, row.s2errR, row.latencyCorrect, row.latencyIncorrect]);
+
+            rowId++;
         });
 
         updateFigure();
