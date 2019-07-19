@@ -347,7 +347,7 @@
             tableBody.appendChild(newRow);
 
             var logD =(
-                Math.log10(((row.s1c1 + row.s1c2) + 0.25)/((row.s1errL + row.s1errR) + 0.25)) +
+                Math.log10(((row.s1c1 + row.s1c2) + 0.25)/((row.s1errL + row.s1errR) + 0.25)) *
                 Math.log10(((row.s2c1 + row.s2c2) + 0.25)/((row.s2errL + row.s2errR) + 0.25))
             )/2.0;
 
